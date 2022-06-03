@@ -1,22 +1,17 @@
 package com.devstone.punchesmanager.data.repository
 
-import com.devstone.punchesmanager.data.dao.ToolSetDao
 import com.devstone.punchesmanager.data.entities.tool.ToolSet
 import kotlinx.coroutines.flow.Flow
 
-class ToolSetRepository (private val toolSetDao: ToolSetDao) {
+interface ToolSetRepository {
 
-    val allToolSets: Flow<List<ToolSet>> = toolSetDao.getAllToolSets()
+    fun getAllToolSets(): Flow<List<ToolSet>>
 
-    suspend fun insert(toolSet: ToolSet) {
-        toolSetDao.insertToolSet(toolSet)
-    }
+    suspend fun getToolSetByPO(poNumber: String): ToolSet?
 
-    suspend fun update(toolSet: ToolSet) {
-        toolSetDao.updateToolSet(toolSet)
-    }
+    suspend fun insertToolSet(toolSet: ToolSet)
 
-    suspend fun delete(toolSet: ToolSet) {
-        toolSetDao.deleteToolSet(toolSet)
-    }
+    suspend fun updateToolSet(toolSet: ToolSet)
+
+    suspend fun deleteToolSet(toolSet: ToolSet)
 }

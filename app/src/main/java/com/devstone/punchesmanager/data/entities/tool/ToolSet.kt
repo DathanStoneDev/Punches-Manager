@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "tool_sets")
 data class ToolSet(
     @PrimaryKey val PONumber: String,
-    @ColumnInfo(name = "tool_type") val tipType: ToolTip,
+    @ColumnInfo(name = "tool_type") val tipType: Int,
     @ColumnInfo(name = "amount") val setAmount: Int,
     @ColumnInfo(name = "shape") val shape: String,
     @ColumnInfo(name = "life_expectancy") val lifeExpectancy: Int,

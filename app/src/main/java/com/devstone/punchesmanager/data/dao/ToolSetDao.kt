@@ -1,6 +1,5 @@
 package com.devstone.punchesmanager.data.dao
 
-
 import androidx.room.*
 import com.devstone.punchesmanager.data.entities.tool.ToolSet
 import kotlinx.coroutines.flow.Flow
@@ -11,6 +10,9 @@ interface ToolSetDao {
 
     @Query("SELECT * FROM tool_sets")
     fun getAllToolSets(): Flow<List<ToolSet>>
+
+    @Query("SELECT * FROM tool_sets WHERE PONumber =:poNumber")
+    suspend fun getToolSetByPO(poNumber: String): ToolSet
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertToolSet(toolSet: ToolSet)

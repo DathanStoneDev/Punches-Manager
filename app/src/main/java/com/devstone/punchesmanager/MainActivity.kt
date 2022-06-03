@@ -3,41 +3,46 @@ package com.devstone.punchesmanager
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.devstone.punchesmanager.ui.theme.PunchesManagerTheme
+import com.devstone.punchesmanager.ui.toolset.ToolSetAddEditScreen
+import com.devstone.punchesmanager.ui.toolset.ToolSetListScreen
+import com.devstone.punchesmanager.util.Routes
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             PunchesManagerTheme {
-
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    Greeting("Android")
+               val navController = rememberNavController()
+                NavHost(navController = navController, startDestination = Routes.TOOL_SET_LIST) {
+                    composable(Routes.TOOL_SET_LIST) {
+                        ToolSetListScreen(onNavigate = {
+                            navController.navigate(it.route)
+                        })
+                    }
+                    composable(
+                        route = Routes.ADD_EDIT_TOOL_SET + "?PONumber={PONumber}",
+                        arguments = listOf(
+                            navArgument(name = "PONumber") {
+                                type = NavType.StringType
+                                defaultValue = ""
+                            }
+                        )
+                    ) {
+                       ToolSetAddEditScreen(onPopBackStack = {
+                           navController.popBackStack()
+                       })
+                    }
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    PunchesManagerTheme {
-        Greeting("Android")
     }
 }
