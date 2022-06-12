@@ -15,7 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.devstone.punchesmanager.util.UiEvent
@@ -26,7 +25,6 @@ fun ToolSetListScreen(
     onNavigate: (UiEvent.Navigate) -> Unit,
     viewModel: ToolSetListViewModel = hiltViewModel()
 ) {
-    //ToolSets State
     val toolSets = viewModel.toolSets.collectAsState(initial = emptyList())
     LaunchedEffect(key1 = true) {
         viewModel.uiEvent.collect { event ->

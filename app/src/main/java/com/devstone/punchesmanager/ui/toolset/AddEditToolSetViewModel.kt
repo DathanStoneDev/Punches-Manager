@@ -42,7 +42,6 @@ class AddEditToolSetViewModel @Inject constructor(
     var tipType by mutableStateOf(1)
         private set
 
-
     private val _uiEvent =  Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 

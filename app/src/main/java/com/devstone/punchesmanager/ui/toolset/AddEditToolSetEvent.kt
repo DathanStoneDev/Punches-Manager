@@ -1,7 +1,5 @@
 package com.devstone.punchesmanager.ui.toolset
 
-import com.devstone.punchesmanager.data.entities.tool.ToolTip
-
 sealed class AddEditToolSetEvent {
     data class OnCreatePONumber(val poNumber: String): AddEditToolSetEvent()
     data class OnAmountChange(val amount: Int): AddEditToolSetEvent()
