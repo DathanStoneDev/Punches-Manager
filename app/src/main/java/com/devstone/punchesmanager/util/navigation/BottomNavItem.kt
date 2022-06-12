@@ -1,4 +1,4 @@
-package com.devstone.punchesmanager.util
+package com.devstone.punchesmanager.util.navigation
 
 import androidx.compose.ui.graphics.vector.ImageVector
 

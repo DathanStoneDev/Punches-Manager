@@ -3,7 +3,7 @@ package com.devstone.punchesmanager.ui.toolset
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.devstone.punchesmanager.data.repository.ToolSetRepository
-import com.devstone.punchesmanager.util.Routes
+import com.devstone.punchesmanager.util.navigation.Routes
 import com.devstone.punchesmanager.util.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel

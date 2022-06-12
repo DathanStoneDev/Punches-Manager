@@ -3,6 +3,8 @@ package com.devstone.punchesmanager.di
 import android.app.Application
 import androidx.room.Room
 import com.devstone.punchesmanager.data.AppDatabase
+import com.devstone.punchesmanager.data.repository.ProductRepository
+import com.devstone.punchesmanager.data.repository.ProductRepositoryImpl
 import com.devstone.punchesmanager.data.repository.ToolSetRepository
 import com.devstone.punchesmanager.data.repository.ToolSetRepositoryImpl
 import dagger.Module
@@ -31,5 +33,11 @@ object AppModule {
     @Singleton
     fun provideToolSetRepository(db: AppDatabase): ToolSetRepository {
         return ToolSetRepositoryImpl(db.toolSetDao())
+    }
+
+    @Provides
+    @Singleton
+    fun provideProductRepository(db: AppDatabase): ProductRepository {
+        return ProductRepositoryImpl(db.productDao())
     }
 }
