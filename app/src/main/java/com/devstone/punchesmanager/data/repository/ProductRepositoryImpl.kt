@@ -11,7 +11,7 @@ class ProductRepositoryImpl(
         return dao.getAllProducts()
     }
 
-    override suspend fun getProductById(id: String): Product? {
+    override suspend fun getProductById(id: String): Product {
         return dao.getProductById(id)
     }
 
