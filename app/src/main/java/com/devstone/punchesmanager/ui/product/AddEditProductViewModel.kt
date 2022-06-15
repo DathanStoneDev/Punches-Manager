@@ -34,25 +34,42 @@ class AddEditProductViewModel @Inject constructor(
     val uiEvent = _uiEvent.receiveAsFlow()
 
 
-    fun onEvent(event: AddEditProductEvent) {
-        when(event) {
-
+    init {
+        val productId = savedStateHandle.get<String>("productId")!!
+        if (productId != ""){
+            viewModelScope.launch {
+                repository.getProductById(productId)?.let { product ->
+                    name = product.name
+                    this@AddEditProductViewModel.product = product
+                }
+            }
         }
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+    fun onEvent(event: AddEditProductEvent) {
+        when(event) {
+            is AddEditProductEvent.OnCreateProductId -> {
+                productId = event.productId
+            }
+            is AddEditProductEvent.OnProductNameChange -> {
+                name = event.name
+            }
+            is AddEditProductEvent.OnSaveProductClick -> {
+                viewModelScope.launch {
+                    if (productId.isNotBlank()) {
+                        repository.insertProduct(
+                            Product(
+                                productId = productId,
+                                name = name
+                            )
+                        )
+                        sendUiEvent(UiEvent.PopBackStack)
+                    }
+                }
+            }
+        }
+    }
 
     private fun sendUiEvent(event: UiEvent) {
         viewModelScope.launch {

@@ -12,7 +12,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.devstone.punchesmanager.ui.theme.PunchesManagerTheme
 import com.devstone.punchesmanager.util.navigation.NavBarItems
-import com.devstone.punchesmanager.util.Navigation
+import com.devstone.punchesmanager.util.navigation.Navigation
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
             PunchesManagerTheme {
                 val navController = rememberNavController()
                 Scaffold (
-                    content = {Navigation(navController)},
+                    content = { Navigation(navController) },
                     bottomBar = { BottomNavigationBar(navController = navController) },
                 )
             }
@@ -43,7 +43,7 @@ fun BottomNavigationBar(navController: NavHostController) {
             BottomNavigationItem(selected = currentRoute == navItem.route, onClick = {
                 navController.navigate(navItem.route) {
                     popUpTo(navController.graph.findStartDestination().id) {
-                        saveState = true
+                        saveState = false
                     }
                     launchSingleTop = true
                     restoreState = true
