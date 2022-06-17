@@ -32,7 +32,7 @@ class ToolSetEntityTest {
         db.close()
     }
 
-    @Test
+    /*@Test
     fun insertToolSetTest() = runBlocking {
         val toolSet = ToolSet(
             "00000", ToolTip.DOUBLE, 30,
@@ -41,6 +41,6 @@ class ToolSetEntityTest {
         toolSetDao.insertToolSet(toolSet)
         val byPONumber = toolSetDao.getToolSetByPO("00000")
         Assert.assertThat(byPONumber.PONumber, equalTo(toolSet.PONumber))
-    }
+    }*/
 
 }

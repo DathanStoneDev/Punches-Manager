@@ -24,7 +24,9 @@ class MainActivity : ComponentActivity() {
             PunchesManagerTheme {
                 val navController = rememberNavController()
                 Scaffold (
-                    content = { Navigation(navController) },
+                    content = {
+                        Navigation(navController)
+                              },
                     bottomBar = { BottomNavigationBar(navController = navController) },
                 )
             }
@@ -46,7 +48,7 @@ fun BottomNavigationBar(navController: NavHostController) {
                         saveState = false
                     }
                     launchSingleTop = true
-                    restoreState = true
+                    restoreState = false
                 }
             },
                 icon = {
