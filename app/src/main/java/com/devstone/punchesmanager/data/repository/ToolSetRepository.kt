@@ -1,6 +1,6 @@
 package com.devstone.punchesmanager.data.repository
 
-import com.devstone.punchesmanager.data.entities.tool.ToolSet
+import com.devstone.punchesmanager.data.entities.ToolSet
 import kotlinx.coroutines.flow.Flow
 
 interface ToolSetRepository {

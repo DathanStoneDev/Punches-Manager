@@ -6,7 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.devstone.punchesmanager.data.entities.tool.ToolSet
+import com.devstone.punchesmanager.data.entities.ToolSet
 import com.devstone.punchesmanager.data.repository.ToolSetRepository
 import com.devstone.punchesmanager.util.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -50,6 +50,7 @@ class AddEditToolSetViewModel @Inject constructor(
         if (toolSetPONumber != ""){
             viewModelScope.launch {
                 repository.getToolSetByPO(toolSetPONumber)?.let { toolSet ->
+                    PONumber = toolSet.PONumber
                     amount = toolSet.setAmount
                     shape = toolSet.shape
                     cost = toolSet.cost

@@ -36,10 +36,14 @@ fun ToolSetListScreen(
         content = {
             SearchBar(
                 modifier = Modifier,
-            )
+                searchText = viewModel.searchText
+            ) {
+                viewModel.onEvent(ToolSetListEvent.OnSearchToolSet(it))
+            }
             LazyColumn(
-                modifier = Modifier.fillMaxSize()
-                    .padding(0.dp, 75.dp)
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(0.dp, 105.dp, 0.dp, 35.dp)
             ) {
                 if (viewModel.searchText.isBlank()) {
                     items(toolSets.value) { toolset ->
@@ -48,7 +52,7 @@ fun ToolSetListScreen(
                             onEvent = viewModel::onEvent,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(16.dp)
+                                .padding(0.dp, 4.dp)
                                 .clickable {
                                     viewModel.onEvent(ToolSetListEvent.OnToolSetClick(toolset))
                                 }
@@ -62,7 +66,6 @@ fun ToolSetListScreen(
                                 onEvent = viewModel::onEvent,
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(16.dp)
                                     .clickable {
                                         viewModel.onEvent(ToolSetListEvent.OnToolSetClick(toolset))
                                     }
@@ -87,25 +90,26 @@ fun ToolSetListScreen(
 @Composable
 fun SearchBar(
     modifier: Modifier,
-    viewModel: ToolSetListViewModel = hiltViewModel()
+    searchText: String,
+    onSearchTextChange: (String) -> Unit
 ){
 
     Surface (
         modifier = modifier
             .fillMaxWidth()
-            .height(74.dp)
-            .padding(20.dp, 15.dp, 20.dp, 0.dp),
+            .height(85.dp)
+            .padding(0.dp, 30.dp, 0.dp, 0.dp),
         elevation = 10.dp,
         color = MaterialTheme.colors.primary,
-        shape = RoundedCornerShape(25)
+        shape = RoundedCornerShape(45)
             ){
 
         TextField(
             modifier = modifier
                 .fillMaxWidth(),
-            value = viewModel.searchText,
+            value = searchText,
             onValueChange = {
-                viewModel.onEvent(ToolSetListEvent.OnSearchToolSet(it))
+                onSearchTextChange(it)
             },
             placeholder = {
                 Text(
@@ -116,7 +120,7 @@ fun SearchBar(
                 )
             },
             textStyle = TextStyle(
-                fontSize = MaterialTheme.typography.subtitle1.fontSize,
+                fontSize = MaterialTheme.typography.subtitle2.fontSize,
             ),
             singleLine = true,
             colors = TextFieldDefaults.textFieldColors(

@@ -1,21 +1,31 @@
 package com.devstone.punchesmanager.util.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.devstone.punchesmanager.ui.home.HomeScreen
 import com.devstone.punchesmanager.ui.product.ProductAddEditScreen
 import com.devstone.punchesmanager.ui.product.ProductListScreen
+import com.devstone.punchesmanager.ui.record.RecordAddEditScreen
+import com.devstone.punchesmanager.ui.record.RecordListScreen
 import com.devstone.punchesmanager.ui.toolset.ToolSetAddEditScreen
 import com.devstone.punchesmanager.ui.toolset.ToolSetListScreen
-import com.devstone.punchesmanager.util.navigation.Routes
 
 @Composable
 fun Navigation(navController: NavHostController) {
 
-    NavHost(navController = navController, startDestination = Routes.TOOL_SET_LIST) {
+    NavHost(navController = navController, startDestination = Routes.HOME) {
+        composable(Routes.HOME) {
+            HomeScreen(
+                onNavigate = {
+                    navController.navigate(it.route)
+                },
+                modifier = Modifier)
+        }
         composable(Routes.TOOL_SET_LIST) {
             ToolSetListScreen(onNavigate = {
                 navController.navigate(it.route)
@@ -34,8 +44,39 @@ fun Navigation(navController: NavHostController) {
                 navController.popBackStack()
             })
         }
+        composable(
+            route = Routes.RECORD_ADD_EDIT + "?PONumber={PONumber}",
+            arguments = listOf(
+                navArgument(name = "PONumber") {
+                    type = NavType.StringType
+                    defaultValue = ""
+                }
+            )
+        ) {
+            RecordAddEditScreen(onPopBackStack = {
+                navController.popBackStack()
+            }, modifier = Modifier)
+        }
+        composable(
+            route = Routes.RECORD_ADD_EDIT + "?toolRecordId={toolRecordId}",
+            arguments = listOf(
+                navArgument(name = "tooRecordId") {
+                    type = NavType.LongType
+                    defaultValue = 0
+                }
+            )
+        ) {
+            RecordAddEditScreen(onPopBackStack = {
+                navController.popBackStack()
+            }, modifier = Modifier)
+        }
         composable(Routes.PRODUCT_LIST) {
             ProductListScreen(onNavigate = {
+                navController.navigate(it.route)
+            })
+        }
+        composable(Routes.RECORD_LIST) {
+            RecordListScreen(onNavigate = {
                 navController.navigate(it.route)
             })
         }

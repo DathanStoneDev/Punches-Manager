@@ -11,7 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.devstone.punchesmanager.data.entities.product.Product
+import com.devstone.punchesmanager.data.entities.Product
 
 @Composable
 fun ProductItem(

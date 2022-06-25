@@ -31,6 +31,9 @@ class ToolSetListViewModel @Inject constructor(
             is ToolSetListEvent.OnToolSetClick -> {
                 sendUiEvent(UiEvent.Navigate(Routes.ADD_EDIT_TOOL_SET + "?PONumber=${event.toolSet.PONumber}"))
             }
+            is ToolSetListEvent.OnCreateRecordClick -> {
+                sendUiEvent(UiEvent.Navigate(Routes.RECORD_ADD_EDIT + "?PONumber=${event.PONumber}"))
+            }
             is ToolSetListEvent.OnDeleteToolSetClick -> {
                 viewModelScope.launch {
                     repository.deleteToolSet(event.toolset)
@@ -47,10 +50,6 @@ class ToolSetListViewModel @Inject constructor(
             }
 
         }
-    }
-
-    private fun searchToolSetList(search: String) {
-
     }
 
     private fun sendUiEvent(event: UiEvent) {

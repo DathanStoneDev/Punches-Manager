@@ -5,11 +5,11 @@ import androidx.room.RoomDatabase
 import com.devstone.punchesmanager.data.dao.ProductDao
 import com.devstone.punchesmanager.data.dao.RecordDao
 import com.devstone.punchesmanager.data.dao.ToolSetDao
-import com.devstone.punchesmanager.data.entities.product.Product
-import com.devstone.punchesmanager.data.entities.record.ToolRecord
-import com.devstone.punchesmanager.data.entities.tool.ToolSet
+import com.devstone.punchesmanager.data.entities.Product
+import com.devstone.punchesmanager.data.entities.ToolRecord
+import com.devstone.punchesmanager.data.entities.ToolSet
 
-@Database(entities = [ToolSet::class, Product::class, ToolRecord::class], version = 5)
+@Database(entities = [ToolSet::class, Product::class, ToolRecord::class], version = 6)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun toolSetDao(): ToolSetDao
     abstract fun productDao(): ProductDao

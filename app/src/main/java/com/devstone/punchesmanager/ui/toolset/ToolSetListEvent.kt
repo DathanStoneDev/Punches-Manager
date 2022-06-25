@@ -1,6 +1,6 @@
 package com.devstone.punchesmanager.ui.toolset
 
-import com.devstone.punchesmanager.data.entities.tool.ToolSet
+import com.devstone.punchesmanager.data.entities.ToolSet
 
 sealed class ToolSetListEvent {
     data class OnDeleteToolSetClick(val toolset: ToolSet): ToolSetListEvent()

@@ -6,7 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.devstone.punchesmanager.data.entities.product.Product
+import com.devstone.punchesmanager.data.entities.Product
 import com.devstone.punchesmanager.data.repository.ProductRepository
 import com.devstone.punchesmanager.util.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel

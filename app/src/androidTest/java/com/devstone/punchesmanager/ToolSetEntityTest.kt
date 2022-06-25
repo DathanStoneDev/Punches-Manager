@@ -6,10 +6,6 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.devstone.punchesmanager.data.AppDatabase
 import com.devstone.punchesmanager.data.dao.ToolSetDao
-import com.devstone.punchesmanager.data.entities.tool.ToolSet
-import com.devstone.punchesmanager.data.entities.tool.ToolTip
-import kotlinx.coroutines.runBlocking
-import org.hamcrest.Matchers.equalTo
 import org.junit.*
 import org.junit.runner.RunWith
 

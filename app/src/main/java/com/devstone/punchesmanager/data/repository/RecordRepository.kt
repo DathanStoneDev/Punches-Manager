@@ -1,6 +1,6 @@
 package com.devstone.punchesmanager.data.repository
 
-import com.devstone.punchesmanager.data.entities.record.ToolRecord
+import com.devstone.punchesmanager.data.entities.ToolRecord
 import kotlinx.coroutines.flow.Flow
 
 interface RecordRepository {

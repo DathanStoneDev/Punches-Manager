@@ -1,7 +1,7 @@
 package com.devstone.punchesmanager.data.repository
 
 import com.devstone.punchesmanager.data.dao.ProductDao
-import com.devstone.punchesmanager.data.entities.product.Product
+import com.devstone.punchesmanager.data.entities.Product
 import kotlinx.coroutines.flow.Flow
 
 class ProductRepositoryImpl(

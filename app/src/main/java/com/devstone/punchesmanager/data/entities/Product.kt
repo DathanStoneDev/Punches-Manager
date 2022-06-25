@@ -1,4 +1,4 @@
-package com.devstone.punchesmanager.data.entities.product
+package com.devstone.punchesmanager.data.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

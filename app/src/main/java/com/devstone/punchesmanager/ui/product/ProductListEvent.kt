@@ -1,6 +1,6 @@
 package com.devstone.punchesmanager.ui.product
 
-import com.devstone.punchesmanager.data.entities.product.Product
+import com.devstone.punchesmanager.data.entities.Product
 
 sealed class ProductListEvent {
     data class OnDeleteProductClick(val product: Product): ProductListEvent()

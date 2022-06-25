@@ -19,6 +19,11 @@ object NavBarItems {
             name = "products",
             route = Routes.PRODUCT_LIST,
             icon = Icons.Default.Home
+        ),
+        BottomNavItem(
+            name = "records",
+            route = Routes.RECORD_LIST,
+            icon = Icons.Default.Home
         )
     )
 }

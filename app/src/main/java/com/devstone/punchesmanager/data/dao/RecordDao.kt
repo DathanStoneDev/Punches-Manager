@@ -1,13 +1,13 @@
 package com.devstone.punchesmanager.data.dao
 
 import androidx.room.*
-import com.devstone.punchesmanager.data.entities.record.ToolRecord
+import com.devstone.punchesmanager.data.entities.ToolRecord
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface RecordDao {
 
-    @Query("SELECT * FROM products")
+    @Query("SELECT * FROM records")
     fun getAllRecords(): Flow<List<ToolRecord>>
 
     @Query("SELECT * FROM records WHERE toolRecordId =:toolRecordId")

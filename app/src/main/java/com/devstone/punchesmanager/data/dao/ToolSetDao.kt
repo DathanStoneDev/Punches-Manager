@@ -1,7 +1,7 @@
 package com.devstone.punchesmanager.data.dao
 
 import androidx.room.*
-import com.devstone.punchesmanager.data.entities.tool.ToolSet
+import com.devstone.punchesmanager.data.entities.ToolSet
 import kotlinx.coroutines.flow.Flow
 
 

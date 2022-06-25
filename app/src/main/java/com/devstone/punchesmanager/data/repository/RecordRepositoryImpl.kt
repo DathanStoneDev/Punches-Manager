@@ -1,7 +1,7 @@
 package com.devstone.punchesmanager.data.repository
 
 import com.devstone.punchesmanager.data.dao.RecordDao
-import com.devstone.punchesmanager.data.entities.record.ToolRecord
+import com.devstone.punchesmanager.data.entities.ToolRecord
 import kotlinx.coroutines.flow.Flow
 
 class RecordRepositoryImpl (

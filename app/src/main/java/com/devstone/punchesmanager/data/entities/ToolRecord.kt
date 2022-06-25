@@ -1,4 +1,4 @@
-package com.devstone.punchesmanager.data.entities.record
+package com.devstone.punchesmanager.data.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -10,6 +10,7 @@ data class ToolRecord (
     val productId: String,
     val productName: String,
     val roomNumber: Int,
+    var dosesRan: Long,
     var checkStatus: Boolean = false
     ) {
 
