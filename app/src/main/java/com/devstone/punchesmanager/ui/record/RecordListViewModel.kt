@@ -2,9 +2,11 @@ package com.devstone.punchesmanager.ui.record
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.devstone.punchesmanager.data.entities.ToolRecord
 import com.devstone.punchesmanager.data.repository.RecordRepository
 import com.devstone.punchesmanager.util.UiEvent
 import com.devstone.punchesmanager.util.navigation.Routes
@@ -39,8 +41,17 @@ class RecordListViewModel @Inject constructor(
             is RecordListEvent.OnRecordStatusChange -> {
                 viewModelScope.launch {
                     checkStatus = event.status
-                    event.record.checkStatus = checkStatus
-                    repository.insertRecord(event.record)
+                    repository.insertRecord(
+                        ToolRecord(
+                            toolRecordId = event.record.toolRecordId,
+                            toolSetId = event.record.toolSetId,
+                            productId = event.record.productId,
+                            productName = event.record.productName,
+                            roomNumber = event.record.roomNumber,
+                            dosesRan = event.record.dosesRan,
+                            checkStatus = checkStatus
+                        )
+                    )
                 }
             }
         }

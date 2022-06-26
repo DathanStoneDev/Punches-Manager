@@ -1,22 +1,25 @@
 package com.devstone.punchesmanager.ui.record
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Alignment
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Save
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.devstone.punchesmanager.ui.product.ProductItem
 import com.devstone.punchesmanager.util.UiEvent
 import kotlinx.coroutines.flow.collect
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun RecordAddEditScreen(
     onPopBackStack: ()-> Unit,
@@ -37,49 +40,104 @@ fun RecordAddEditScreen(
     Scaffold(
         modifier = modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(16.dp),
+        topBar = { AddRecordTopAppBar(onEvent = viewModel::onEvent) }
     ) {
 
         Column(
             modifier = modifier.fillMaxSize()
         ) {
-            Text(
-                text = "Add A New Record For: ${viewModel.toolSetPONumberForRecord}",
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold
-            )
-            /*
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
+            var productText by remember {
+                mutableStateOf("")
+            }
+            Row {
                 Text(
-                    text = viewModel.toolSetPONumberForRecord,
-                    modifier = Modifier.weight(1f),
+                    text = "New Record: ${viewModel.toolSetPONumberForRecord}",
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold
                 )
-                if (viewModel.toolRecordId <= 0) {
-                    Text(text = "New Record!")
-                }
-                Text(text = viewModel.productIdForRecord)
-                Text(text = viewModel.productNameForRecord)
-            }*/
+            }
+            
             TextField(
                 value = viewModel.totalDoses.toString(),
                 onValueChange = {
                     viewModel.onEvent(AddEditRecordEvent.OnDosesRanChange(it.toLong()))
-                }
+                },
+                label = { Text(text = "Doses: ")},
+                singleLine = true
             )
             TextField(
                 value = viewModel.roomNumber.toString(),
                 onValueChange = {
                     viewModel.onEvent(AddEditRecordEvent.OnRoomNumberChange(it.toInt()))
-                }
+                },
+                label = { Text(text = "Room Number")},
+                singleLine = true
             )
+            TextField(
+                value = productText,
+                onValueChange = { productText = it },
+                label = { Text(text = "Products")},
+                singleLine = true
+            )
+            Spacer(modifier = Modifier.height(10.dp))
+            val filteredOptions = products.value.filter { 
+                it.name.contains(productText, ignoreCase = true) }
+            if (filteredOptions.isNotEmpty()) {
+                LazyColumn(modifier = modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 30.dp)) {
+                    items(filteredOptions) { product ->
+                        ProductItem(
+                            product = product,
+                            onEvent = {},
+                            modifier = modifier
+                                .fillMaxWidth()
+                                .padding(16.dp)
+                                .clickable {
+                                    productText = product.name
+                                    viewModel.onEvent(AddEditRecordEvent.OnProductClick(product))
+                                }
+                    )
+                    }
+                }
+                }
+            }
+            }
 
         }
 
-    }
-
+@Composable
+fun AddRecordTopAppBar(onEvent: (AddEditRecordEvent) -> Unit) {
+    TopAppBar(
+        title = { Text("Home") },
+        backgroundColor = Color.LightGray,
+        actions = {
+            IconButton(
+                onClick = {
+                    onEvent(AddEditRecordEvent.OnProfileClick)
+                },
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.Person,
+                    contentDescription = "profile",
+                    tint = Color.Red
+                )
+            }
+            IconButton(
+                onClick = {
+                    onEvent(AddEditRecordEvent.OnSaveRecordClick)
+                },
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.Save,
+                    contentDescription = "profile",
+                    tint = Color.Red
+                )
+            }
+        },
+        elevation = 0.dp
+    )
 }
+
+

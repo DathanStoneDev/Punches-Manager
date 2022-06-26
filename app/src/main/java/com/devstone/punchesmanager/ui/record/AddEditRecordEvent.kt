@@ -7,4 +7,5 @@ sealed class AddEditRecordEvent {
     data class OnProductClick(val product: Product): AddEditRecordEvent()
     data class OnRoomNumberChange(val roomNumber: Int): AddEditRecordEvent()
     object OnSaveRecordClick: AddEditRecordEvent()
+    object OnProfileClick: AddEditRecordEvent()
 }

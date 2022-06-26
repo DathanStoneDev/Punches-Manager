@@ -49,8 +49,6 @@ fun HomeScreen(
         Spacer(modifier = modifier.height(15.dp))
         GreetingCard(modifier)
         Spacer(modifier = modifier.height(15.dp))
-        MainCardRow(modifier, viewModel)
-        Spacer(modifier = modifier.height(15.dp))
         ReportCardTile(modifier = modifier, onEvent = viewModel::onEvent)
         Spacer(modifier = modifier.height(15.dp))
         StatCardTile(modifier = modifier)
@@ -97,56 +95,6 @@ fun GreetingCard(modifier: Modifier) {
         Column () {
             Text(text = "Welcome back Dathan")
             Text(text = currentDate)
-        }
-    }
-}
-
-@Composable
-fun MainCardRow(modifier: Modifier, viewModel: HomeViewModel) {
-    Row (
-        modifier = modifier
-            .width(350.dp)
-            .height(100.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
-    ){
-        MainCardRowItem(modifier = modifier, label = "ToolSets", onEvent = viewModel::onEvent)
-        MainCardRowItem(modifier = modifier, label = "Products", onEvent = viewModel::onEvent)
-        MainCardRowItem(modifier = modifier, label = "Records", onEvent = viewModel::onEvent)
-    }
-}
-
-@Composable
-fun MainCardRowItem(modifier: Modifier, label: String, onEvent: (HomeEvent) -> Unit) {
-    Surface(
-        modifier = modifier
-            .width(85.dp)
-            .height(85.dp)
-            .clip(CutCornerShape(10.dp))
-            .background(White)
-            .clickable {
-                when (label) {
-                    "ToolSets" -> {
-                        onEvent(HomeEvent.OnToolSetCardClick)
-                    }
-                    "Products" -> {
-                        onEvent(HomeEvent.OnProductCardClick)
-                    }
-                    "Records" -> {
-                        onEvent(HomeEvent.OnRecordCardClick)
-                    }
-                }
-            },
-        elevation = 10.dp
-    ) {
-        Column (
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-                ) {
-            Text(
-                text = label,
-                fontWeight = FontWeight.Bold,
-            )
         }
     }
 }

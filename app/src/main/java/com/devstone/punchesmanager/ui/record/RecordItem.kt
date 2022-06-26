@@ -39,10 +39,10 @@ fun RecordItem(
                 contentDescription = "Delete")
         }
 
-        var state by rememberSaveable { mutableStateOf(true)}
+        var state = record.checkStatus
 
         RadioButton(
-            selected = state,
+            selected = state ,
             onClick = {
                 state = true
                 viewModel.onEvent(RecordListEvent.OnRecordStatusChange(state, record))
