@@ -34,16 +34,13 @@ fun RecordListScreen(
         content = {
             LazyColumn(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .padding(0.dp, 75.dp)
+                    .padding(vertical = 4.dp)
             ) {
                 items(records.value) { record ->
                     RecordItem(
                         record = record,
                         onEvent = viewModel::onEvent,
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp)
                             .clickable {
                                 viewModel.onEvent(RecordListEvent.OnRecordClick(record))
                             }
