@@ -41,9 +41,6 @@ fun RecordListScreen(
                         record = record,
                         onEvent = viewModel::onEvent,
                         modifier = Modifier
-                            .clickable {
-                                viewModel.onEvent(RecordListEvent.OnRecordClick(record))
-                            }
                     )
                 }
             }

@@ -42,6 +42,9 @@ class AddEditToolSetViewModel @Inject constructor(
     var tipType by mutableStateOf(1)
         private set
 
+    var retired by mutableStateOf(false)
+        private set
+
     private val _uiEvent =  Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 
@@ -93,7 +96,8 @@ class AddEditToolSetViewModel @Inject constructor(
                                 setAmount = amount,
                                 shape = shape,
                                 lifeExpectancy = life,
-                                cost = cost
+                                cost = cost,
+                                retired = retired
                             )
                         )
                         sendUiEvent(UiEvent.PopBackStack)

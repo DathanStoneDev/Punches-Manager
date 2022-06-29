@@ -2,6 +2,7 @@ package com.devstone.punchesmanager.data.dao
 
 import androidx.room.*
 import com.devstone.punchesmanager.data.entities.ToolRecord
+import com.devstone.punchesmanager.data.entities.ToolSet
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -21,4 +22,7 @@ interface RecordDao {
 
     @Delete
     suspend fun deleteRecord(record: ToolRecord)
+
+    @Query("SELECT * FROM records WHERE toolSetId =:toolSetId")
+    suspend fun getToolSetsById(toolSetId: String): List<ToolRecord>
 }

@@ -8,6 +8,7 @@ import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.DeleteForever
 import androidx.compose.material.icons.filled.Details
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.runtime.*
@@ -16,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -32,7 +34,7 @@ fun RecordItem(
     var expanded by remember { mutableStateOf(false) }
 
     val increasedSize by animateDpAsState(
-        if (expanded) 48.dp else 16.dp,
+        if (expanded) 36.dp else 16.dp,
         animationSpec = spring(
             dampingRatio = Spring.DampingRatioMediumBouncy,
             stiffness = Spring.StiffnessLow
@@ -65,14 +67,6 @@ fun RecordItem(
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.weight(1f)
                 )
-                IconButton(onClick = {
-                    onEvent(RecordListEvent.OnDeleteRecord(record))
-                }) {
-                    Icon(
-                        imageVector = Icons.Default.Delete,
-                        contentDescription = "Delete"
-                    )
-                }
 
                 var state = record.checkStatus
 
@@ -97,12 +91,26 @@ fun RecordItem(
                         selectedColor = Color.Red
                     )
                 )
+                IconButton(onClick = {
+                    onEvent(RecordListEvent.OnDeleteRecord(record))
+                }) {
+                    Icon(
+                        imageVector = Icons.Default.Delete,
+                        contentDescription = "Delete"
+                    )
+                }
+
             }
             if (expanded){
                 Column(
-
                     horizontalAlignment = Alignment.Start,
                 ) {
+                    Text(
+                        text = "Details",
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold,
+                        textDecoration = TextDecoration.Underline
+                    )
                     Text(text = "Product ID: ${record.productId}")
                     Text(text = "Product Name: ${record.productName}")
                     Text(text = "Doses Ran: ${record.dosesRan}")

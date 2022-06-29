@@ -23,4 +23,7 @@ interface ToolSetDao {
     @Delete
     suspend fun deleteToolSet(toolSet: ToolSet)
 
+    @Query("SELECT * FROM tool_sets WHERE status =:status")
+    suspend fun getToolSetsByStatus(status: Boolean)
+
 }

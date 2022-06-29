@@ -12,6 +12,4 @@ data class ToolRecord (
     val roomNumber: Int,
     var dosesRan: Long,
     var checkStatus: Boolean = false
-    ) {
-
-}
+    )
