@@ -2,6 +2,7 @@ package com.devstone.punchesmanager.data.dao
 
 import androidx.room.*
 import com.devstone.punchesmanager.data.entities.ToolSet
+import com.devstone.punchesmanager.ui.report.model.ToolSetReport
 import kotlinx.coroutines.flow.Flow
 
 
@@ -23,7 +24,9 @@ interface ToolSetDao {
     @Delete
     suspend fun deleteToolSet(toolSet: ToolSet)
 
-    @Query("SELECT * FROM tool_sets WHERE status =:status")
-    suspend fun getToolSetsByStatus(status: Boolean)
+    @Transaction
+    @Query("SELECT * FROM tool_sets")
+    suspend fun getToolSetReport(): ToolSetReport
+
 
 }

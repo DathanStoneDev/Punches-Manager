@@ -1,16 +1,23 @@
 package com.devstone.punchesmanager.ui.record
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Save
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Black
+import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.modifier.modifierLocalConsumer
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -25,105 +32,149 @@ fun RecordAddEditScreen(
     onPopBackStack: ()-> Unit,
     viewModel: AddEditRecordViewModel = hiltViewModel(),
     modifier: Modifier
-){
-    
+) {
+
     val products = viewModel.products.collectAsState(initial = emptyList())
     LaunchedEffect(key1 = true) {
         viewModel.uiEvent.collect { event ->
-            when(event) {
+            when (event) {
                 is UiEvent.PopBackStack -> onPopBackStack()
                 else -> Unit
             }
         }
     }
-
-    Scaffold(
+    Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(16.dp),
-        topBar = { AddRecordTopAppBar(onEvent = viewModel::onEvent) }
+            .background(Color.LightGray),
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
+        AddRecordTopAppBar(onEvent = viewModel::onEvent)
+        Spacer(modifier = modifier.height(40.dp))
+        var productText by remember {
+            mutableStateOf("")
+        }
 
-        Column(
-            modifier = modifier.fillMaxSize()
+        Text(
+            text = "Tool Set ID: ${viewModel.toolSetPONumberForRecord}",
+            fontSize = 18.sp,
+            fontFamily = FontFamily.Monospace,
+            letterSpacing = 2.sp,
+            modifier = modifier
+                .padding(bottom = 10.dp)
+        )
+        Spacer(modifier = Modifier.height(10.dp))
+        Surface(
+            modifier = modifier
+                .width(250.dp)
+                .height(55.dp),
+            elevation = 10.dp,
+            color = White,
+            shape = CutCornerShape(10.dp)
         ) {
-            var productText by remember {
-                mutableStateOf("")
-            }
-            Row {
-                Text(
-                    text = "New Record: ${viewModel.toolSetPONumberForRecord}",
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold
-                )
-            }
-            
             TextField(
                 value = viewModel.totalDoses.toString(),
                 onValueChange = {
                     viewModel.onEvent(AddEditRecordEvent.OnDosesRanChange(it.toLong()))
                 },
-                label = { Text(text = "Doses: ")},
-                singleLine = true
+                label = { Text(text = "Doses: ",
+                    fontFamily = FontFamily.Monospace) },
+                singleLine = true,
+                modifier = modifier
+                    .fillMaxWidth(),
+                colors = TextFieldDefaults.textFieldColors(
+                    backgroundColor = Color.Transparent,
+                    cursorColor = White
+            ),
             )
+        }
+        Spacer(modifier = Modifier.height(10.dp))
+        Surface(
+            modifier = modifier
+                .width(250.dp)
+                .height(55.dp),
+            elevation = 10.dp,
+            color = White,
+            shape = CutCornerShape(10.dp)
+        ) {
             TextField(
                 value = viewModel.roomNumber.toString(),
                 onValueChange = {
                     viewModel.onEvent(AddEditRecordEvent.OnRoomNumberChange(it.toInt()))
                 },
-                label = { Text(text = "Room Number")},
-                singleLine = true
+                label = { Text(text = "Room Number",
+                    fontFamily = FontFamily.Monospace) },
+                singleLine = true,
+                modifier = modifier
+                    .fillMaxWidth(),
+                colors = TextFieldDefaults.textFieldColors(
+                    backgroundColor = Color.Transparent,
+                    cursorColor = White
+                )
             )
+        }
+        Spacer(modifier = Modifier.height(10.dp))
+        Surface(
+            modifier = modifier
+                .width(250.dp)
+                .height(55.dp),
+            elevation = 10.dp,
+            color = White,
+            shape = CutCornerShape(10.dp)
+        ){
             TextField(
                 value = productText,
                 onValueChange = { productText = it },
-                label = { Text(text = "Products")},
-                singleLine = true
+                label = { Text(text = "Products",
+                    fontFamily = FontFamily.Monospace) },
+                singleLine = true,
+                modifier = modifier
+                    .fillMaxWidth(),
+                colors = TextFieldDefaults.textFieldColors(
+                    backgroundColor = Color.Transparent,
+                    cursorColor = White
+                )
             )
-            Spacer(modifier = Modifier.height(10.dp))
-            val filteredOptions = products.value.filter { 
-                it.name.contains(productText, ignoreCase = true) }
-            if (filteredOptions.isNotEmpty()) {
-                LazyColumn(modifier = modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 30.dp)) {
-                    items(filteredOptions) { product ->
-                        ProductItem(
-                            product = product,
-                            onEvent = {},
-                            modifier = modifier
-                                .fillMaxWidth()
-                                .padding(16.dp)
-                                .clickable {
-                                    productText = product.name
-                                    viewModel.onEvent(AddEditRecordEvent.OnProductClick(product))
-                                }
-                    )
-                    }
-                }
-                }
-            }
-            }
-
         }
+        Spacer(modifier = Modifier.height(10.dp))
+        val filteredOptions = products.value.filter {
+            it.name.contains(productText, ignoreCase = true)
+        }
+        if (filteredOptions.isNotEmpty() && productText != "") {
+            LazyColumn(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 30.dp)
+            ) {
+                items(filteredOptions) { product ->
+                    ProductItem(
+                        product = product,
+                        onEvent = {},
+                        modifier = modifier
+                            .fillMaxWidth()
+                            .padding(16.dp)
+                            .clickable {
+                                productText = product.name
+                                viewModel.onEvent(AddEditRecordEvent.OnProductClick(product))
+                            }
+                    )
+                }
+            }
+        }
+    }
+}
 
 @Composable
 fun AddRecordTopAppBar(onEvent: (AddEditRecordEvent) -> Unit) {
     TopAppBar(
-        title = { Text("Home") },
+        title = {
+            Text("Add Record",
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                fontFamily = FontFamily.Monospace)
+                },
         backgroundColor = Color.LightGray,
         actions = {
-            IconButton(
-                onClick = {
-                    onEvent(AddEditRecordEvent.OnProfileClick)
-                },
-            ) {
-                Icon(
-                    imageVector = Icons.Filled.Person,
-                    contentDescription = "profile",
-                    tint = Color.Red
-                )
-            }
             IconButton(
                 onClick = {
                     onEvent(AddEditRecordEvent.OnSaveRecordClick)
@@ -132,7 +183,7 @@ fun AddRecordTopAppBar(onEvent: (AddEditRecordEvent) -> Unit) {
                 Icon(
                     imageVector = Icons.Filled.Save,
                     contentDescription = "profile",
-                    tint = Color.Red
+                    tint = Black
                 )
             }
         },

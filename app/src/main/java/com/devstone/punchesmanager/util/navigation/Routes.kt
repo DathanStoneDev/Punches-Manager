@@ -12,5 +12,6 @@ object Routes {
     const val HOME = "home"
     const val RECORD_LIST = "record_list"
     const val RECORD_ADD_EDIT = "record_add_edit"
+    const val PROFILE = "profile"
 
 }

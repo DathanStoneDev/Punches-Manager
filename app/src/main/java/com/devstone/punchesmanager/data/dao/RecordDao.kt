@@ -22,7 +22,4 @@ interface RecordDao {
 
     @Delete
     suspend fun deleteRecord(record: ToolRecord)
-
-    @Query("SELECT * FROM records WHERE toolSetId =:toolSetId")
-    suspend fun getToolSetsById(toolSetId: String): List<ToolRecord>
 }

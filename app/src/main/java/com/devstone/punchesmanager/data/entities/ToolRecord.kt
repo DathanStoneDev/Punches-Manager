@@ -13,3 +13,4 @@ data class ToolRecord (
     var dosesRan: Long,
     var checkStatus: Boolean = false
     )
+

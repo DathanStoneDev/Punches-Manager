@@ -1,21 +1,32 @@
 package com.devstone.punchesmanager.ui.toolset
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Black
+import androidx.compose.ui.graphics.Color.Companion.LightGray
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.devstone.punchesmanager.ui.home.HomeEvent
 import com.devstone.punchesmanager.util.UiEvent
 import kotlinx.coroutines.flow.collect
 
@@ -32,59 +43,57 @@ fun ToolSetListScreen(
             }
         }
     }
-    Scaffold (
-        content = {
-            SearchBar(
-                modifier = Modifier,
-                searchText = viewModel.searchText
-            ) {
-                viewModel.onEvent(ToolSetListEvent.OnSearchToolSet(it))
-            }
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(0.dp, 105.dp, 0.dp, 35.dp)
-            ) {
-                if (viewModel.searchText.isBlank()) {
-                    items(toolSets.value) { toolset ->
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(LightGray),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+
+        ToolSetTopAppBar(modifier = Modifier, onEvent = viewModel::onEvent)
+        Spacer(modifier = Modifier.height(15.dp))
+        SearchBar(
+            modifier = Modifier,
+            searchText = viewModel.searchText,
+        ) {
+            viewModel.onEvent(ToolSetListEvent.OnSearchToolSet(it))
+        }
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(top = 15.dp)
+                .background(LightGray),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            if (viewModel.searchText.isBlank()) {
+                items(toolSets.value) { toolset ->
+                    ToolSetItem(
+                        toolSet = toolset,
+                        onEvent = viewModel::onEvent,
+                        modifier = Modifier
+                            .padding(0.dp, 4.dp)
+                            .clickable {
+                                viewModel.onEvent(ToolSetListEvent.OnToolSetClick(toolset))
+                            }
+                    )
+                }
+            } else {
+                items(toolSets.value) { toolset->
+                    if(toolset.PONumber == viewModel.searchText) {
                         ToolSetItem(
                             toolSet = toolset,
                             onEvent = viewModel::onEvent,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(0.dp, 4.dp)
                                 .clickable {
                                     viewModel.onEvent(ToolSetListEvent.OnToolSetClick(toolset))
                                 }
                         )
                     }
-                } else {
-                    items(toolSets.value) { toolset->
-                        if(toolset.PONumber == viewModel.searchText) {
-                            ToolSetItem(
-                                toolSet = toolset,
-                                onEvent = viewModel::onEvent,
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .clickable {
-                                        viewModel.onEvent(ToolSetListEvent.OnToolSetClick(toolset))
-                                    }
-                            )
-                        }
-                    }
                 }
             }
-        },
-        floatingActionButton = {
-            FloatingActionButton(onClick = {
-                viewModel.onEvent(ToolSetListEvent.OnAddToolSetClick)
-            }) {
-                Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = "Add")
-            }
         }
-            )
+    }
 }
 
 @Composable
@@ -96,12 +105,11 @@ fun SearchBar(
 
     Surface (
         modifier = modifier
-            .fillMaxWidth()
-            .height(85.dp)
-            .padding(0.dp, 30.dp, 0.dp, 0.dp),
+            .width(350.dp)
+            .height(50.dp),
         elevation = 10.dp,
-        color = MaterialTheme.colors.primary,
-        shape = RoundedCornerShape(45)
+        color = White,
+        shape = CutCornerShape(10.dp),
             ){
 
         TextField(
@@ -116,11 +124,13 @@ fun SearchBar(
                     modifier = modifier
                         .alpha(ContentAlpha.medium),
                     text = "Search...",
-                    color = White
+                    color = Black,
+                    fontSize = 14.sp,
+                    fontFamily = FontFamily.Monospace
                 )
             },
             textStyle = TextStyle(
-                fontSize = MaterialTheme.typography.subtitle2.fontSize,
+                fontSize = MaterialTheme.typography.body1.fontSize,
             ),
             singleLine = true,
             colors = TextFieldDefaults.textFieldColors(
@@ -130,4 +140,47 @@ fun SearchBar(
         )
 
     }
+}
+
+@Composable
+fun ToolSetTopAppBar(modifier: Modifier, onEvent: (ToolSetListEvent) -> Unit) {
+    TopAppBar(
+        title = {
+            Text(
+                text = "Tool Sets",
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                fontFamily = FontFamily.Monospace
+            )
+                },
+        backgroundColor = LightGray,
+        actions =  {
+            IconButton(
+                onClick = {
+                onEvent(ToolSetListEvent.OnProfileClick) },
+                modifier = modifier
+                    .size(32.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.Person,
+                    contentDescription = "profile",
+                    tint = Black,
+                )
+            }
+            IconButton(
+                onClick = {
+                onEvent(ToolSetListEvent.OnAddToolSetClick)
+            }, modifier = modifier
+                    .size(32.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.Add,
+                    contentDescription = "profile",
+                    tint = Black
+                )
+
+            }
+        },
+        elevation = 0.dp
+    )
 }
