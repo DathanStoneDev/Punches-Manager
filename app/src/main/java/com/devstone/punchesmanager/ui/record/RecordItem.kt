@@ -5,6 +5,7 @@ import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
@@ -16,6 +17,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
@@ -41,8 +43,9 @@ fun RecordItem(
         )
     )
     Surface(
-        color = MaterialTheme.colors.primary,
-        modifier = modifier.padding(vertical = 4.dp, horizontal = 8.dp)
+        color = Color.White,
+        shape = CutCornerShape(10.dp),
+        modifier = Modifier.width(350.dp)
     ) {
         Column {
             Row(
@@ -63,9 +66,10 @@ fun RecordItem(
                 }
                 Text(
                     text = record.toolSetId,
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.weight(1f)
+                    fontFamily = FontFamily.Monospace,
+                    fontSize = 18.sp,
+                    modifier = Modifier.weight(1f),
+                    letterSpacing = 2.sp
                 )
 
                 var state = record.checkStatus
@@ -104,16 +108,18 @@ fun RecordItem(
             if (expanded){
                 Column(
                     horizontalAlignment = Alignment.Start,
+                    modifier = modifier.padding(start = 10.dp)
                 ) {
                     Text(
                         text = "Details",
-                        fontSize = 20.sp,
+                        fontFamily = FontFamily.Monospace,
+                        fontSize = 18.sp,
                         fontWeight = FontWeight.Bold,
                         textDecoration = TextDecoration.Underline
                     )
-                    Text(text = "Product ID: ${record.productId}")
-                    Text(text = "Product Name: ${record.productName}")
-                    Text(text = "Doses Ran: ${record.dosesRan}")
+                    Text(text = "Product ID: ${record.productId}", fontFamily = FontFamily.Monospace)
+                    Text(text = "Product Name: ${record.productName}", fontFamily = FontFamily.Monospace)
+                    Text(text = "Doses Ran: ${record.dosesRan}", fontFamily = FontFamily.Monospace)
                 }
             }
 

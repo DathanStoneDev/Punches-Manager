@@ -14,6 +14,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.LightGray
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -68,7 +69,7 @@ fun HomeTopAppBar(modifier: Modifier, onEvent: (HomeEvent) -> Unit) {
                     Icon(
                         imageVector = Icons.Filled.Person,
                         contentDescription = "profile",
-                        tint = Red
+                        tint = Black
                     )
                 }
         },

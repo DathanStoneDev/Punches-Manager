@@ -35,10 +35,12 @@ class AddEditProductViewModel @Inject constructor(
 
 
     init {
-        val productId = savedStateHandle.get<String>("productId")!!
+        val sentProductId = savedStateHandle.get<String>("productId")!!
+        productId = sentProductId
         if (productId != ""){
             viewModelScope.launch {
                 repository.getProductById(productId)?.let { product ->
+                    productId = sentProductId
                     name = product.name
                     this@AddEditProductViewModel.product = product
                 }

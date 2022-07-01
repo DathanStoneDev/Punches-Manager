@@ -43,4 +43,10 @@ object AppModule {
     fun provideRecordRepository(db: AppDatabase):RecordRepository {
         return RecordRepositoryImpl(db.recordDao())
     }
+
+    @Provides
+    @Singleton
+    fun provideUserRepository(db: AppDatabase): UserRepository {
+        return UserRepositoryImpl(db.userDao())
+    }
 }

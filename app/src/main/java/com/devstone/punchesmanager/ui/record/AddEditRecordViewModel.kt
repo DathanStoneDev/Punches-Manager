@@ -75,19 +75,19 @@ class AddEditRecordViewModel @Inject constructor(
         }
     }
 
-    fun onEvent(event: AddEditRecordEvent) {
+    fun onEvent(event: AddRecordEvent) {
         when(event) {
-            is AddEditRecordEvent.OnProductClick -> {
+            is AddRecordEvent.OnProductClick -> {
                 productIdForRecord = event.product.productId
                 productNameForRecord = event.product.name
             }
-            is AddEditRecordEvent.OnDosesRanChange -> {
+            is AddRecordEvent.OnDosesRanChange -> {
                 totalDoses = event.doses
             }
-            is AddEditRecordEvent.OnRoomNumberChange -> {
+            is AddRecordEvent.OnRoomNumberChange -> {
                 roomNumber = event.roomNumber
             }
-            is AddEditRecordEvent.OnSaveRecordClick -> {
+            is AddRecordEvent.OnSaveRecordClick -> {
                 viewModelScope.launch{
                     repository.insertRecord(
                         ToolRecord(

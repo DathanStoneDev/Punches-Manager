@@ -8,7 +8,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Save
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -16,7 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.White
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -75,7 +73,7 @@ fun RecordAddEditScreen(
             TextField(
                 value = viewModel.totalDoses.toString(),
                 onValueChange = {
-                    viewModel.onEvent(AddEditRecordEvent.OnDosesRanChange(it.toLong()))
+                    viewModel.onEvent(AddRecordEvent.OnDosesRanChange(it.toLong()))
                 },
                 label = { Text(text = "Doses: ",
                     fontFamily = FontFamily.Monospace) },
@@ -100,7 +98,7 @@ fun RecordAddEditScreen(
             TextField(
                 value = viewModel.roomNumber.toString(),
                 onValueChange = {
-                    viewModel.onEvent(AddEditRecordEvent.OnRoomNumberChange(it.toInt()))
+                    viewModel.onEvent(AddRecordEvent.OnRoomNumberChange(it.toInt()))
                 },
                 label = { Text(text = "Room Number",
                     fontFamily = FontFamily.Monospace) },
@@ -155,7 +153,7 @@ fun RecordAddEditScreen(
                             .padding(16.dp)
                             .clickable {
                                 productText = product.name
-                                viewModel.onEvent(AddEditRecordEvent.OnProductClick(product))
+                                viewModel.onEvent(AddRecordEvent.OnProductClick(product))
                             }
                     )
                 }
@@ -165,7 +163,7 @@ fun RecordAddEditScreen(
 }
 
 @Composable
-fun AddRecordTopAppBar(onEvent: (AddEditRecordEvent) -> Unit) {
+fun AddRecordTopAppBar(onEvent: (AddRecordEvent) -> Unit) {
     TopAppBar(
         title = {
             Text("Add Record",
@@ -177,7 +175,7 @@ fun AddRecordTopAppBar(onEvent: (AddEditRecordEvent) -> Unit) {
         actions = {
             IconButton(
                 onClick = {
-                    onEvent(AddEditRecordEvent.OnSaveRecordClick)
+                    onEvent(AddRecordEvent.OnSaveRecordClick)
                 },
             ) {
                 Icon(

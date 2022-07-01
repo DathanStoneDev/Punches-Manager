@@ -30,9 +30,6 @@ class RecordListViewModel @Inject constructor(
 
     fun onEvent(event: RecordListEvent) {
         when(event) {
-            is RecordListEvent.OnRecordClick -> {
-                sendUiEvent(UiEvent.Navigate(Routes.RECORD_ADD_EDIT + "?toolRecordId=${event.record.toolRecordId}"))
-            }
             is RecordListEvent.OnDeleteRecord -> {
                 viewModelScope.launch {
                     repository.deleteRecord(event.record)
