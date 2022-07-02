@@ -55,6 +55,12 @@ class AddEditRecordViewModel @Inject constructor(
     var totalDoses: Long by mutableStateOf(0)
         private set
 
+    var date by mutableStateOf("")
+        private set
+
+    var time by mutableStateOf("")
+        private set
+
     init {
 
         val toolSetPONumber: String? = savedStateHandle.get<String>("PONumber")
@@ -70,6 +76,8 @@ class AddEditRecordViewModel @Inject constructor(
                     roomNumber = record.roomNumber
                     this@AddEditRecordViewModel.record = record
                     totalDoses = record.dosesRan
+                    date = record.date
+                    time = record.time
                 }
             }
         }
@@ -87,6 +95,12 @@ class AddEditRecordViewModel @Inject constructor(
             is AddRecordEvent.OnRoomNumberChange -> {
                 roomNumber = event.roomNumber
             }
+            is AddRecordEvent.OnDateClick -> {
+                date = event.date
+            }
+            is AddRecordEvent.OnTimeClick -> {
+                date = event.time
+            }
             is AddRecordEvent.OnSaveRecordClick -> {
                 viewModelScope.launch{
                     repository.insertRecord(
@@ -96,7 +110,9 @@ class AddEditRecordViewModel @Inject constructor(
                             productId = productIdForRecord,
                             productName = productNameForRecord,
                             roomNumber = roomNumber,
-                            dosesRan = totalDoses
+                            dosesRan = totalDoses,
+                            date = date,
+                            time = time
                         )
                     )
                     sendUiEvent(UiEvent.PopBackStack)

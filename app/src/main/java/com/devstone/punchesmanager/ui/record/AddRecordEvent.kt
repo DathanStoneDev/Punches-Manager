@@ -7,5 +7,6 @@ sealed class AddRecordEvent {
     data class OnProductClick(val product: Product): AddRecordEvent()
     data class OnRoomNumberChange(val roomNumber: Int): AddRecordEvent()
     object OnSaveRecordClick: AddRecordEvent()
-    object OnProfileClick: AddRecordEvent()
+    data class OnDateClick(val date: String): AddRecordEvent()
+    data class OnTimeClick(val time: String): AddRecordEvent()
 }

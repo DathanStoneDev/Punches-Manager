@@ -84,7 +84,6 @@ fun ToolSetListScreen(
                             toolSet = toolset,
                             onEvent = viewModel::onEvent,
                             modifier = Modifier
-                                .fillMaxWidth()
                                 .clickable {
                                     viewModel.onEvent(ToolSetListEvent.OnToolSetClick(toolset))
                                 }
@@ -106,7 +105,7 @@ fun SearchBar(
     Surface (
         modifier = modifier
             .width(350.dp)
-            .height(50.dp),
+            .height(60.dp),
         elevation = 10.dp,
         color = White,
         shape = CutCornerShape(10.dp),
@@ -119,11 +118,13 @@ fun SearchBar(
             onValueChange = {
                 onSearchTextChange(it)
             },
+            label = { Text(text = "Tool Set Search",
+                fontFamily = FontFamily.Monospace)},
             placeholder = {
                 Text(
                     modifier = modifier
                         .alpha(ContentAlpha.medium),
-                    text = "Search...",
+                    text = "Search By PO Number...",
                     color = Black,
                     fontSize = 14.sp,
                     fontFamily = FontFamily.Monospace
@@ -157,25 +158,13 @@ fun ToolSetTopAppBar(modifier: Modifier, onEvent: (ToolSetListEvent) -> Unit) {
         actions =  {
             IconButton(
                 onClick = {
-                onEvent(ToolSetListEvent.OnProfileClick) },
-                modifier = modifier
-                    .size(32.dp)
-            ) {
-                Icon(
-                    imageVector = Icons.Filled.Person,
-                    contentDescription = "profile",
-                    tint = Black,
-                )
-            }
-            IconButton(
-                onClick = {
                 onEvent(ToolSetListEvent.OnAddToolSetClick)
             }, modifier = modifier
                     .size(32.dp)
             ) {
                 Icon(
                     imageVector = Icons.Filled.Add,
-                    contentDescription = "profile",
+                    contentDescription = "Add Tool Set",
                     tint = Black
                 )
 

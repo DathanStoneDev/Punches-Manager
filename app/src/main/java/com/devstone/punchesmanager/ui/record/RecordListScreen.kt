@@ -72,20 +72,6 @@ fun RecordTopAppBar(modifier: Modifier, onEvent: (RecordListEvent) -> Unit) {
             )
         },
         backgroundColor = Color.LightGray,
-        actions =  {
-            IconButton(
-                onClick = {
-                    onEvent(RecordListEvent.OnProfileClick) },
-                modifier = modifier
-                    .size(32.dp)
-            ) {
-                Icon(
-                    imageVector = Icons.Filled.Person,
-                    contentDescription = "profile",
-                    tint = Color.Black,
-                )
-            }
-        },
         elevation = 0.dp
     )
 }

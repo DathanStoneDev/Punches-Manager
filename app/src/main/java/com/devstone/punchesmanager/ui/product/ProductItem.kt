@@ -40,10 +40,10 @@ fun ProductItem(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = product.productId,
+                text = "${product.productId}: ${product.name}",
                 fontFamily = FontFamily.Monospace,
                 letterSpacing = 2.sp,
-                fontSize = 18.sp,
+                fontSize = 14.sp,
                 modifier = Modifier.weight(1f)
                     .padding(10.dp)
             )

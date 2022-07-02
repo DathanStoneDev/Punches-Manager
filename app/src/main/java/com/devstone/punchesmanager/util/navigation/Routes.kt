@@ -14,5 +14,6 @@ object Routes {
     const val RECORD_ADD_EDIT = "record_add_edit"
     const val PROFILE = "profile"
     const val REPORTS = "Reports"
+    const val LOGIN = "login"
 
 }

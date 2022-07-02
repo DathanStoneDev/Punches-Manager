@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Save
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -20,7 +21,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.devstone.punchesmanager.data.entities.Product
 import com.devstone.punchesmanager.ui.product.ProductItem
+import com.devstone.punchesmanager.ui.product.ProductListEvent
 import com.devstone.punchesmanager.util.UiEvent
 import kotlinx.coroutines.flow.collect
 
@@ -145,12 +148,9 @@ fun RecordAddEditScreen(
                     .padding(bottom = 30.dp)
             ) {
                 items(filteredOptions) { product ->
-                    ProductItem(
+                    FilteredProductItem(
                         product = product,
-                        onEvent = {},
                         modifier = modifier
-                            .fillMaxWidth()
-                            .padding(16.dp)
                             .clickable {
                                 productText = product.name
                                 viewModel.onEvent(AddRecordEvent.OnProductClick(product))
@@ -158,6 +158,35 @@ fun RecordAddEditScreen(
                     )
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun FilteredProductItem(
+    product: Product,
+    modifier: Modifier = Modifier
+) {
+    Surface (
+        modifier = modifier
+            .width(350.dp)
+            .height(55.dp),
+        color = White,
+        shape = CutCornerShape(10.dp)
+    )
+    {
+        Row(
+            modifier = modifier,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = product.productId,
+                fontFamily = FontFamily.Monospace,
+                letterSpacing = 2.sp,
+                fontSize = 18.sp,
+                modifier = Modifier.weight(1f)
+                    .padding(10.dp)
+            )
         }
     }
 }

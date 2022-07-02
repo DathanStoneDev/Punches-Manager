@@ -2,6 +2,7 @@ package com.devstone.punchesmanager.data.repository
 
 import com.devstone.punchesmanager.data.dao.ToolSetDao
 import com.devstone.punchesmanager.data.entities.ToolSet
+import com.devstone.punchesmanager.ui.report.model.ToolSetReport
 import kotlinx.coroutines.flow.Flow
 
 class ToolSetRepositoryImpl(
@@ -26,5 +27,9 @@ class ToolSetRepositoryImpl(
 
     override suspend fun deleteToolSet(toolSet: ToolSet) {
         dao.deleteToolSet(toolSet)
+    }
+
+    override fun getToolSetReport(): ToolSetReport? {
+        return dao.getToolSetReport()
     }
 }

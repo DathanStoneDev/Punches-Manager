@@ -48,10 +48,6 @@ class ToolSetListViewModel @Inject constructor(
                     repository.getToolSetByPO(event.searchText)
                 }
             }
-            is ToolSetListEvent.OnProfileClick -> {
-                sendUiEvent(UiEvent.Navigate(Routes.PROFILE))
-            }
-
         }
     }
 

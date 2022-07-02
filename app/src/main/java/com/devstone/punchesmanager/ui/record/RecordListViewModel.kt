@@ -46,18 +46,13 @@ class RecordListViewModel @Inject constructor(
                             productName = event.record.productName,
                             roomNumber = event.record.roomNumber,
                             dosesRan = event.record.dosesRan,
-                            checkStatus = checkStatus
+                            checkStatus = checkStatus,
+                            date = event.record.date,
+                            time = event.record.time
                         )
                     )
                 }
             }
         }
     }
-
-    private fun sendUiEvent(event: UiEvent) {
-        viewModelScope.launch {
-            _uiEvent.send(event)
-        }
-    }
-
 }

@@ -8,5 +8,4 @@ sealed class ToolSetListEvent {
     data class OnCreateRecordClick(val PONumber: String): ToolSetListEvent()
     data class OnSearchToolSet(val searchText: String): ToolSetListEvent()
     object OnAddToolSetClick: ToolSetListEvent()
-    object OnProfileClick: ToolSetListEvent()
 }

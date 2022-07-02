@@ -7,24 +7,44 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.devstone.punchesmanager.MainActivity
 import com.devstone.punchesmanager.ui.home.HomeScreen
+import com.devstone.punchesmanager.ui.login.LoginScreen
+import com.devstone.punchesmanager.ui.login.ProfileScreen
 import com.devstone.punchesmanager.ui.product.ProductAddEditScreen
 import com.devstone.punchesmanager.ui.product.ProductListScreen
 import com.devstone.punchesmanager.ui.record.RecordAddEditScreen
 import com.devstone.punchesmanager.ui.record.RecordListScreen
+import com.devstone.punchesmanager.ui.report.ReportScreen
 import com.devstone.punchesmanager.ui.toolset.ToolSetAddEditScreen
 import com.devstone.punchesmanager.ui.toolset.ToolSetListScreen
 
 @Composable
 fun Navigation(navController: NavHostController) {
 
-    NavHost(navController = navController, startDestination = Routes.HOME) {
-        composable(Routes.HOME) {
+    NavHost(navController = navController, startDestination = Routes.LOGIN) {
+        composable(Routes.LOGIN) {
+            LoginScreen(
+                onNavigate = {
+                navController.navigate(it.route) {
+                    popUpTo(0)
+                }
+            }, modifier = Modifier
+            )
+        }
+        composable(
+            route = Routes.PROFILE,
+        ) {
+            ProfileScreen(modifier = Modifier)
+        }
+        composable(Routes.HOME ,
+        ) {
             HomeScreen(
                 onNavigate = {
                     navController.navigate(it.route)
                 },
-                modifier = Modifier)
+                modifier = Modifier,
+            )
         }
         composable(Routes.TOOL_SET_LIST) {
             ToolSetListScreen(onNavigate = {
@@ -92,6 +112,9 @@ fun Navigation(navController: NavHostController) {
             ProductAddEditScreen(onPopBackStack = {
                 navController.popBackStack()
             })
+        }
+        composable(Routes.REPORTS) {
+            ReportScreen(modifier = Modifier)
         }
     }
 }

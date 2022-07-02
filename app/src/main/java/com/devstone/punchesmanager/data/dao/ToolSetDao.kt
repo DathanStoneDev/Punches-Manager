@@ -26,7 +26,7 @@ interface ToolSetDao {
 
     @Transaction
     @Query("SELECT * FROM tool_sets")
-    suspend fun getToolSetReport(): ToolSetReport
+    fun getToolSetReport(): ToolSetReport
 
 
 }

@@ -2,6 +2,7 @@ package com.devstone.punchesmanager.ui.product
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -23,6 +24,9 @@ class ProductListViewModel @Inject constructor (
     private val _uiEvent = Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 
+    var productSearchText by mutableStateOf("")
+        private set
+
     fun onEvent(event: ProductListEvent){
         when(event) {
             is ProductListEvent.OnProductClick -> {
@@ -35,6 +39,9 @@ class ProductListViewModel @Inject constructor (
             }
             is ProductListEvent.OnAddEditProductClick -> {
                 sendUiEvent(UiEvent.Navigate(Routes.PRODUCT_ADD_EDIT))
+            }
+            is ProductListEvent.OnSearchEvent -> {
+                productSearchText = event.searchText
             }
         }
     }

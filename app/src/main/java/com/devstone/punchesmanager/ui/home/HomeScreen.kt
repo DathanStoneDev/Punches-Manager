@@ -1,7 +1,7 @@
 package com.devstone.punchesmanager.ui.home
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material.*
@@ -9,8 +9,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Summarize
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -19,10 +19,12 @@ import androidx.compose.ui.graphics.Color.Companion.LightGray
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.devstone.punchesmanager.util.UiEvent
-import androidx.compose.ui.graphics.Color.Companion.Red
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.devstone.punchesmanager.MainActivity
+import com.devstone.punchesmanager.util.navigation.USERNAME
 import kotlinx.coroutines.flow.collect
 import java.text.SimpleDateFormat
 import java.util.*
@@ -31,7 +33,7 @@ import java.util.*
 fun HomeScreen(
     onNavigate: (UiEvent.Navigate) -> Unit,
     viewModel: HomeViewModel = hiltViewModel(),
-    modifier: Modifier
+    modifier: Modifier,
 ){
     LaunchedEffect(key1 = true) {
         viewModel.uiEvent.collect { event ->
@@ -40,6 +42,9 @@ fun HomeScreen(
             }
         }
     }
+
+
+    
     Column (
         modifier = modifier
             .fillMaxSize()
@@ -48,11 +53,11 @@ fun HomeScreen(
             ){
         HomeTopAppBar(modifier = modifier, onEvent = viewModel::onEvent)
         Spacer(modifier = modifier.height(15.dp))
-        GreetingCard(modifier)
+        GreetingCard(modifier, USERNAME.username)
         Spacer(modifier = modifier.height(15.dp))
         ReportCardTile(modifier = modifier, onEvent = viewModel::onEvent)
         Spacer(modifier = modifier.height(15.dp))
-        StatCardTile(modifier = modifier)
+        //StatCardTile(modifier = modifier)
 
     }
 }
@@ -78,7 +83,7 @@ fun HomeTopAppBar(modifier: Modifier, onEvent: (HomeEvent) -> Unit) {
 }
 
 @Composable
-fun GreetingCard(modifier: Modifier) {
+fun GreetingCard(modifier: Modifier, name: String) {
 
     //make this into a util class
     val sdf = SimpleDateFormat("MM/dd/yyyy", Locale.US)
@@ -93,9 +98,14 @@ fun GreetingCard(modifier: Modifier) {
             .background(White),
         elevation = 10.dp
     ) {
-        Column () {
-            Text(text = "Welcome back Dathan")
-            Text(text = currentDate)
+        Column (
+            modifier = modifier
+                .padding(start = 10.dp, top = 10.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+            Text(text = "Welcome $name", fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold, fontSize = 30.sp)
+            Spacer(modifier = modifier.height(25.dp))
+            Text(text = currentDate, fontFamily = FontFamily.Monospace, fontSize = 24.sp)
         }
     }
 }
@@ -138,7 +148,7 @@ fun ReportCardTile(modifier: Modifier, onEvent: (HomeEvent) -> Unit) {
     }
 }
 
-@Composable
+/*@Composable
 fun StatCardTile(modifier: Modifier) {
     Surface(
         modifier = modifier
@@ -159,6 +169,6 @@ fun StatCardTile(modifier: Modifier) {
             }
         }
     }
-}
+}*/
 
 

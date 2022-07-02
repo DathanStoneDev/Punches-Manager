@@ -11,7 +11,7 @@ import com.devstone.punchesmanager.data.entities.ToolRecord
 import com.devstone.punchesmanager.data.entities.ToolSet
 import com.devstone.punchesmanager.data.entities.ToolUser
 
-@Database(entities = [ToolSet::class, Product::class, ToolRecord::class, ToolUser::class], version = 8)
+@Database(entities = [ToolSet::class, Product::class, ToolRecord::class, ToolUser::class], version = 11, exportSchema = true)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun toolSetDao(): ToolSetDao
     abstract fun productDao(): ProductDao
