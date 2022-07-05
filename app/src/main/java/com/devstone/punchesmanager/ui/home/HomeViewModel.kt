@@ -48,6 +48,9 @@ class HomeViewModel @Inject constructor(
             is HomeEvent.OnProfileClick -> {
                 sendUiEvent(UiEvent.Navigate(Routes.PROFILE + "?username=${username}"))
             }
+            is HomeEvent.OnReportCardClick -> {
+                sendUiEvent(UiEvent.Navigate(Routes.REPORTS))
+            }
 
         }
 

@@ -22,7 +22,6 @@ import javax.inject.Inject
 class AddEditRecordViewModel @Inject constructor(
     private val repository: RecordRepository,
     private val productRepository: ProductRepository,
-    private val toolRepository: ToolSetRepository,
     savedStateHandle: SavedStateHandle
 ): ViewModel() {
 

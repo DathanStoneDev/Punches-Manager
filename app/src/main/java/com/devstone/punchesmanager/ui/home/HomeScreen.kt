@@ -148,27 +148,4 @@ fun ReportCardTile(modifier: Modifier, onEvent: (HomeEvent) -> Unit) {
     }
 }
 
-/*@Composable
-fun StatCardTile(modifier: Modifier) {
-    Surface(
-        modifier = modifier
-            .width(350.dp)
-            .height(200.dp)
-            .padding(0.dp, 10.dp)
-            .clip(CutCornerShape(10.dp))
-            .background(White),
-        elevation = 10.dp,
-    ) {
-        Row (
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-            Column {
-                Text(text = "25")
-                Text(text = "Total Number Of Sets")
-            }
-        }
-    }
-}*/
-
 

@@ -29,7 +29,7 @@ class ToolSetRepositoryImpl(
         dao.deleteToolSet(toolSet)
     }
 
-    override fun getToolSetReport(): ToolSetReport? {
+    override fun getToolSetReport(): Flow<ToolSetReport> {
         return dao.getToolSetReport()
     }
 }

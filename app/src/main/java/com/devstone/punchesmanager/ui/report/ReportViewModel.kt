@@ -4,22 +4,25 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.devstone.punchesmanager.data.repository.RecordRepository
 import com.devstone.punchesmanager.data.repository.ToolSetRepository
+import com.devstone.punchesmanager.ui.report.model.ToolSetReport
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ReportViewModel @Inject constructor(
-    val repository: ToolSetRepository
+    private val recordRepo: RecordRepository
 ): ViewModel() {
 
-    val data = repository.getToolSetReport()
+    val records = recordRepo.getAllRecords()
 
     var searchText by mutableStateOf("")
         private set
 
     var showReport by mutableStateOf(0)
-        private set
 
     fun onEvent(event: ReportEvent) {
         when(event) {
@@ -27,13 +30,13 @@ class ReportViewModel @Inject constructor(
                 searchText = event.po
             }
             is ReportEvent.OnClickDosingReport -> {
-                showReport = 1
+                showReport = 0
             }
             is ReportEvent.OnClickProductReport -> {
-                showReport = 2
+                showReport = 1
             }
             is ReportEvent.OnClickLifeSpanReport -> {
-                showReport = 3
+                showReport = 2
             }
         }
     }

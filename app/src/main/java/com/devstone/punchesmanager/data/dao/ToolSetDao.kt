@@ -26,7 +26,7 @@ interface ToolSetDao {
 
     @Transaction
     @Query("SELECT * FROM tool_sets")
-    fun getToolSetReport(): ToolSetReport
+    fun getToolSetReport(): Flow<ToolSetReport>
 
 
 }
