@@ -1,4 +1,4 @@
-package com.devstone.punchesmanager.ui.report
+package com.devstone.punchesmanager.ui.report.pages
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -16,6 +16,8 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.devstone.punchesmanager.data.entities.ToolRecord
+import com.devstone.punchesmanager.ui.report.ReportEvent
+import com.devstone.punchesmanager.ui.report.ReportViewModel
 
 @Composable
 fun DosingReport(
@@ -45,7 +47,7 @@ fun DosingReport(
             shape = CutCornerShape(10.dp)
         ) {
             Row(
-                modifier = modifier.fillMaxWidth(),
+                modifier = modifier.fillMaxWidth().padding(top = 5.dp, start = 5.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 TableHeadings(modifier = modifier.width(100.dp), heading = "Record ID")
@@ -62,15 +64,15 @@ fun DosingReport(
                     items(filter) { record ->
                         Row(modifier = modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                             DosingItem(
-                                modifier = modifier.padding(bottom = 8.dp),
+                                modifier = modifier.padding(bottom = 8.dp, start = 5.dp),
                                 dataPoint = record.toolRecordId.toString()
                             )
                             DosingItem(
-                                modifier = modifier.padding(bottom = 8.dp),
+                                modifier = modifier.padding(bottom = 8.dp, start = 5.dp),
                                 dataPoint = record.toolSetId
                             )
                             DosingItem(
-                                modifier = modifier.padding(bottom = 8.dp),
+                                modifier = modifier.padding(bottom = 8.dp, start = 5.dp),
                                 dataPoint = record.dosesRan.toString()
                             )
                         }
@@ -86,15 +88,15 @@ fun DosingReport(
                     items(toolRecords) { record ->
                         Row(modifier = modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                             DosingItem(
-                                modifier = modifier.padding(bottom = 8.dp),
+                                modifier = modifier.padding(bottom = 8.dp, start = 5.dp),
                                 dataPoint = record.toolRecordId.toString()
                             )
                             DosingItem(
-                                modifier = modifier.padding(bottom = 8.dp),
+                                modifier = modifier.padding(bottom = 8.dp, start = 5.dp),
                                 dataPoint = record.toolSetId
                             )
                             DosingItem(
-                                modifier = modifier.padding(bottom = 8.dp),
+                                modifier = modifier.padding(bottom = 8.dp, start = 5.dp),
                                 dataPoint = record.dosesRan.toString()
                             )
                         }

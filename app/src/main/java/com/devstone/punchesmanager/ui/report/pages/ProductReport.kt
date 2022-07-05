@@ -1,4 +1,4 @@
-package com.devstone.punchesmanager.ui.report
+package com.devstone.punchesmanager.ui.report.pages
 
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable

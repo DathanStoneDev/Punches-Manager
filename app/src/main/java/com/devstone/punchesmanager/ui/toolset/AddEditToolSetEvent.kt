@@ -8,4 +8,5 @@ sealed class AddEditToolSetEvent {
     data class OnLifeExpectancyChange(val lifeExpectancy: Int): AddEditToolSetEvent()
     data class OnTipTypeChange(val toolTipType: Int): AddEditToolSetEvent()
     object OnSaveToolSetClick: AddEditToolSetEvent()
+    data class OnRetireSelection(val retire: Boolean): AddEditToolSetEvent()
 }

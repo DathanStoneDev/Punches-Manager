@@ -117,7 +117,7 @@ fun RecordItem(
                         fontWeight = FontWeight.Bold,
                         textDecoration = TextDecoration.Underline
                     )
-                    Text(text = "Date & Time: ${record.date} - ${record.time}", fontFamily = FontFamily.Monospace)
+                    Text(text = "Date & Time: ${record.date}", fontFamily = FontFamily.Monospace)
                     Text(text = "Product ID: ${record.productId}", fontFamily = FontFamily.Monospace)
                     Text(text = "Product Name: ${record.productName}", fontFamily = FontFamily.Monospace)
                     Text(text = "Doses Ran: ${record.dosesRan}", fontFamily = FontFamily.Monospace)

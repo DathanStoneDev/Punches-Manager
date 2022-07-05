@@ -23,6 +23,7 @@ object AppModule {
             AppDatabase.DATABASE_NAME,
         )
             .createFromAsset("database/punches_db.db")
+            .fallbackToDestructiveMigration()
             .build()
     }
 

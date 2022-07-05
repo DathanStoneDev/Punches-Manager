@@ -13,6 +13,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.devstone.punchesmanager.ui.report.pages.DosingReport
+import com.devstone.punchesmanager.ui.report.pages.LifeSpanReport
+import com.devstone.punchesmanager.ui.report.pages.ProductReport
 
 @Composable
 fun ReportScreen(
@@ -41,7 +44,7 @@ fun ReportScreen(
         Spacer(modifier = modifier.height(20.dp))
         when(viewModel.showReport){
             0 -> DosingReport(records.value, modifier, viewModel)
-            1 -> LifeSpanReport()
+            1 -> LifeSpanReport(records.value, modifier, viewModel)
             2 -> ProductReport()
         }
     }

@@ -2,13 +2,11 @@ package com.devstone.punchesmanager.ui.toolset
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Save
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -19,6 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.devstone.punchesmanager.ui.record.RecordListEvent
 import com.devstone.punchesmanager.util.UiEvent
 import kotlinx.coroutines.flow.collect
 
@@ -213,6 +212,58 @@ fun ToolSetAddEditScreen(
                     cursorColor = Color.White
                 )
             )
+        }
+        Spacer(modifier = Modifier.height(10.dp))
+        Surface(
+            modifier = Modifier
+                .width(250.dp)
+                .height(55.dp),
+            elevation = 10.dp,
+            color = Color.White,
+            shape = CutCornerShape(10.dp)
+        ){
+            Row(
+                modifier = Modifier
+                    .selectableGroup(),
+                verticalAlignment = Alignment.CenterVertically
+            )
+            {
+
+                var state = viewModel.retired
+                Row (
+                    verticalAlignment = Alignment.CenterVertically
+                        ){
+                    Text(text = "Active Set", fontFamily = FontFamily.Monospace, fontSize = 12.sp, modifier = Modifier.padding(start = 3.dp))
+                    RadioButton(
+                        selected = state,
+                        onClick = {
+                            state = true
+                            viewModel.onEvent(AddEditToolSetEvent.OnRetireSelection(state))
+                        },
+                        colors = RadioButtonDefaults.colors(
+                            selectedColor = Color.Green
+                        ),
+
+                        )
+                }
+                Row (verticalAlignment = Alignment.CenterVertically){
+                    Text(text = "Retired Set",
+                        fontFamily = FontFamily.Monospace,
+                        fontSize = 12.sp,
+                    )
+                    RadioButton(
+                        selected = !state,
+                        onClick = {
+                            state = false
+                            viewModel.onEvent(AddEditToolSetEvent.OnRetireSelection(state))
+                        },
+                        colors = RadioButtonDefaults.colors(
+                            selectedColor = Color.Red
+                        )
+                    ) 
+                }
+               
+            }
         }
     }
 }

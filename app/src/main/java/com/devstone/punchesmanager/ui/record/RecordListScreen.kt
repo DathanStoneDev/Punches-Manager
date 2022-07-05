@@ -39,14 +39,13 @@ fun RecordListScreen(
             .background(Color.LightGray),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        RecordTopAppBar(modifier = Modifier, onEvent = viewModel::onEvent)
+        RecordTopAppBar()
         Spacer(modifier = Modifier.height(40.dp))
         LazyColumn(
-            modifier = Modifier
-                .padding(vertical = 4.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             items(records.value) { record ->
+                Spacer(modifier = Modifier.height(4.dp))
                 RecordItem(
                     record = record,
                     onEvent = viewModel::onEvent,
@@ -59,7 +58,7 @@ fun RecordListScreen(
 }
 
 @Composable
-fun RecordTopAppBar(modifier: Modifier, onEvent: (RecordListEvent) -> Unit) {
+fun RecordTopAppBar() {
     TopAppBar(
         title = {
             Text(

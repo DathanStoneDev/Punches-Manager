@@ -26,6 +26,11 @@ import com.devstone.punchesmanager.ui.product.ProductItem
 import com.devstone.punchesmanager.ui.product.ProductListEvent
 import com.devstone.punchesmanager.util.UiEvent
 import kotlinx.coroutines.flow.collect
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -204,7 +209,10 @@ fun AddRecordTopAppBar(onEvent: (AddRecordEvent) -> Unit) {
         actions = {
             IconButton(
                 onClick = {
-                    onEvent(AddRecordEvent.OnSaveRecordClick)
+                    val currentDateTime = LocalDateTime.now()
+                    val sdf = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm", Locale.US)
+                    val formatted = sdf.format(currentDateTime)
+                    onEvent(AddRecordEvent.OnSaveRecordClick(formatted))
                 },
             ) {
                 Icon(

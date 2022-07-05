@@ -11,7 +11,6 @@ data class ToolRecord (
     val productName: String,
     val roomNumber: Int,
     val date: String,
-    val time: String,
     var dosesRan: Long,
     var checkStatus: Boolean = false
     )

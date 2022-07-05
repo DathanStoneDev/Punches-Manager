@@ -78,6 +78,7 @@ fun ToolSetListScreen(
                     )
                 }
             } else {
+                //need to filter to ignore case
                 items(toolSets.value) { toolset->
                     if(toolset.PONumber == viewModel.searchText) {
                         ToolSetItem(

@@ -48,7 +48,6 @@ class RecordListViewModel @Inject constructor(
                             dosesRan = event.record.dosesRan,
                             checkStatus = checkStatus,
                             date = event.record.date,
-                            time = event.record.time
                         )
                     )
                 }

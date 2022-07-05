@@ -59,6 +59,7 @@ class AddEditToolSetViewModel @Inject constructor(
                     cost = toolSet.cost
                     life = toolSet.lifeExpectancy
                     tipType = toolSet.tipType
+                    retired = toolSet.retired
                     this@AddEditToolSetViewModel.toolSet = toolSet
                 }
 
@@ -85,6 +86,9 @@ class AddEditToolSetViewModel @Inject constructor(
             }
             is AddEditToolSetEvent.OnTipTypeChange -> {
                 tipType = event.toolTipType
+            }
+            is AddEditToolSetEvent.OnRetireSelection -> {
+                retired = event.retire
             }
             is AddEditToolSetEvent.OnSaveToolSetClick -> {
                 viewModelScope.launch {
