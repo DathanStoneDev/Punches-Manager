@@ -7,4 +7,6 @@ interface UserRepository {
     suspend fun getUser(username: String, password: String): ToolUser
 
     suspend fun getUserForProfile(username: String): String
+
+    suspend fun getUserPasswordForVerification(username: String): String
 }

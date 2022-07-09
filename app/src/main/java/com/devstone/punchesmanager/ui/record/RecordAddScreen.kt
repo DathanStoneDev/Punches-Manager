@@ -133,6 +133,10 @@ fun RecordAddEditScreen(
                 onValueChange = { productText = it },
                 label = { Text(text = "Products",
                     fontFamily = FontFamily.Monospace) },
+                placeholder = { Text(
+                    text = "Search Product By ID..",
+                fontFamily = FontFamily.Monospace,
+                fontSize = 12.sp)},
                 singleLine = true,
                 modifier = modifier
                     .fillMaxWidth(),
@@ -144,18 +148,20 @@ fun RecordAddEditScreen(
         }
         Spacer(modifier = Modifier.height(10.dp))
         val filteredOptions = products.value.filter {
-            it.name.contains(productText, ignoreCase = true)
+            it.productId.contains(productText, ignoreCase = true)
         }
         if (filteredOptions.isNotEmpty() && productText != "") {
             LazyColumn(
                 modifier = modifier
                     .fillMaxWidth()
-                    .padding(bottom = 30.dp)
+                    .padding(bottom = 30.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 items(filteredOptions) { product ->
                     FilteredProductItem(
                         product = product,
                         modifier = modifier
+                            .padding(0.dp, 4.dp)
                             .clickable {
                                 productText = product.name
                                 viewModel.onEvent(AddRecordEvent.OnProductClick(product))
@@ -174,7 +180,7 @@ fun FilteredProductItem(
 ) {
     Surface (
         modifier = modifier
-            .width(350.dp)
+            .width(250.dp)
             .height(55.dp),
         color = White,
         shape = CutCornerShape(10.dp)
@@ -185,11 +191,12 @@ fun FilteredProductItem(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = product.productId,
+                text = "${product.productId}: ${product.name}",
                 fontFamily = FontFamily.Monospace,
                 letterSpacing = 2.sp,
                 fontSize = 18.sp,
-                modifier = Modifier.weight(1f)
+                modifier = Modifier
+                    .weight(1f)
                     .padding(10.dp)
             )
         }

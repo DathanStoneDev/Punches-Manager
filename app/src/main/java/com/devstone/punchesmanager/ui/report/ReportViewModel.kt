@@ -20,14 +20,13 @@ class ReportViewModel @Inject constructor(
     val records = recordRepo.getAllRecords()
 
     var searchText by mutableStateOf("")
-        private set
 
     var showReport by mutableStateOf(0)
 
     fun onEvent(event: ReportEvent) {
         when(event) {
-            is ReportEvent.OnSearchToolSetByPO -> {
-                searchText = event.po
+            is ReportEvent.OnSearch -> {
+                searchText = event.text
             }
             is ReportEvent.OnClickDosingReport -> {
                 showReport = 0

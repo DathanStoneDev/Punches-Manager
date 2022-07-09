@@ -13,4 +13,8 @@ class UserRepositoryImpl (
     override suspend fun getUserForProfile(username: String): String {
         return dao.getUserWithUsernameForProfile(username)
     }
+
+    override suspend fun getUserPasswordForVerification(username: String): String {
+        return dao.getUserPasswordForVerification(username)
+    }
 }

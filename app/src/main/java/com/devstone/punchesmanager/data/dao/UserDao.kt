@@ -12,4 +12,7 @@ interface UserDao {
 
     @Query("SELECT username FROM users WHERE username =:username")
     suspend fun getUserWithUsernameForProfile(username: String): String
+
+    @Query("SELECT password FROM users WHERE username =:username")
+    suspend fun getUserPasswordForVerification(username: String): String
 }

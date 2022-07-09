@@ -37,6 +37,7 @@ fun ReportScreen(
                     onClick = {
                         tab = index
                         viewModel.showReport = tab
+                        viewModel.searchText = ""
                     }
                 )
             }
@@ -45,7 +46,7 @@ fun ReportScreen(
         when(viewModel.showReport){
             0 -> DosingReport(records.value, modifier, viewModel)
             1 -> LifeSpanReport(records.value, modifier, viewModel)
-            2 -> ProductReport()
+            2 -> ProductReport(records.value, modifier, viewModel)
         }
     }
 }

@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface ToolSetDao {
 
-    @Query("SELECT * FROM tool_sets")
+    @Query("SELECT * FROM tool_sets ORDER BY PONumber ASC")
     fun getAllToolSets(): Flow<List<ToolSet>>
 
     @Query("SELECT * FROM tool_sets WHERE PONumber =:poNumber")

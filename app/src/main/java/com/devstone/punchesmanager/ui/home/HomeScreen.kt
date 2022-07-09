@@ -141,6 +141,7 @@ fun ReportCardTile(modifier: Modifier, onEvent: (HomeEvent) -> Unit) {
                     .padding(10.dp)
                     .weight(1f),
                 fontWeight = FontWeight.Bold,
+                fontFamily = FontFamily.Monospace,
                 fontSize = 18.sp,
             )
             Icon(imageVector = Icons.Filled.ArrowForward, contentDescription = "go-to-reports")

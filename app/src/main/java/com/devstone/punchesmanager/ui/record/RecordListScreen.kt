@@ -40,9 +40,10 @@ fun RecordListScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         RecordTopAppBar()
-        Spacer(modifier = Modifier.height(40.dp))
+        Spacer(modifier = Modifier.height(20.dp))
         LazyColumn(
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.padding(bottom = 100.dp)
         ) {
             items(records.value) { record ->
                 Spacer(modifier = Modifier.height(4.dp))

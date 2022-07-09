@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.sp
 import com.devstone.punchesmanager.data.entities.ToolRecord
 import com.devstone.punchesmanager.ui.report.ReportEvent
 import com.devstone.punchesmanager.ui.report.ReportViewModel
+import com.devstone.punchesmanager.ui.report.shared.ReportSearchBar
 
 @Composable
 fun DosingReport(
@@ -36,8 +37,13 @@ fun DosingReport(
         modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
-        DosingReportSearchBar(modifier = modifier, searchText = viewModel.searchText, onSearch = viewModel::onEvent)
+        ReportSearchBar(
+            modifier = modifier,
+            searchText = viewModel.searchText,
+            labelText = "Tool Set Search",
+            placeholder = "Enter Tool Set ID",
+            onSearch = viewModel::onEvent
+        )
         Spacer(modifier = modifier.height(20.dp))
         Surface(
             modifier = modifier
@@ -47,7 +53,9 @@ fun DosingReport(
             shape = CutCornerShape(10.dp)
         ) {
             Row(
-                modifier = modifier.fillMaxWidth().padding(top = 5.dp, start = 5.dp),
+                modifier = modifier
+                    .fillMaxWidth()
+                    .padding(top = 5.dp, start = 5.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 TableHeadings(modifier = modifier.width(100.dp), heading = "Record ID")
@@ -107,56 +115,6 @@ fun DosingReport(
         }
             Text(text = "Total Doses: $doses")
         }
-}
-
-@Composable
-fun DosingReportSearchBar(
-    modifier: Modifier,
-    searchText: String,
-    onSearch: (ReportEvent) -> Unit,
-){
-    Surface (
-        modifier = modifier
-            .width(350.dp)
-            .height(60.dp),
-        elevation = 10.dp,
-        color = Color.White,
-        shape = CutCornerShape(10.dp),
-    ) {
-
-        TextField(
-            modifier = modifier
-                .fillMaxWidth(),
-            value = searchText,
-            onValueChange = {
-                onSearch(ReportEvent.OnSearchToolSetByPO(it))
-            },
-            label = {
-                Text(
-                    text = "Dosing Results Search",
-                    fontFamily = FontFamily.Monospace
-                )
-            },
-            placeholder = {
-                Text(
-                    modifier = modifier
-                        .alpha(ContentAlpha.medium),
-                    text = "Enter Too Set ID...",
-                    color = Color.Black,
-                    fontSize = 14.sp,
-                    fontFamily = FontFamily.Monospace
-                )
-            },
-            textStyle = TextStyle(
-                fontSize = MaterialTheme.typography.body1.fontSize,
-            ),
-            singleLine = true,
-            colors = TextFieldDefaults.textFieldColors(
-                backgroundColor = Color.Transparent,
-                cursorColor = Color.White
-            )
-        )
-    }
 }
 
 @Composable

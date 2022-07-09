@@ -2,12 +2,11 @@ package com.devstone.punchesmanager.ui.login
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.devstone.punchesmanager.MainActivity
+import at.favre.lib.crypto.bcrypt.BCrypt
 import com.devstone.punchesmanager.data.repository.UserRepository
 import com.devstone.punchesmanager.util.UiEvent
 import com.devstone.punchesmanager.util.navigation.Routes
@@ -16,6 +15,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import java.nio.charset.StandardCharsets
 import javax.inject.Inject
 
 @HiltViewModel
@@ -34,6 +34,8 @@ class ProfileAndLoginViewModel @Inject constructor(
      var password by mutableStateOf("")
           private set
 
+     private var hashedPassword = ""
+
      init {
           val savedUserName = savedStateHandle.get<String>("username")
           if (savedUserName != null) {
@@ -46,10 +48,15 @@ class ProfileAndLoginViewModel @Inject constructor(
                is LoginEvent.OnLoginClick -> {
                     viewModelScope.launch {
                          try {
-                              repository.getUser(event.username, event.password).let { user ->
-                                   username = user.username
-                                   USERNAME.username = username
-                                   sendUiEvent(UiEvent.Navigate(Routes.HOME + "?username=${username}"))
+                              repository.getUserPasswordForVerification(event.username).let { hash ->
+                                   hashedPassword = hash
+                                   if (checkPassword(password, hashedPassword)) {
+                                        username = event.username
+                                        USERNAME.username = username
+                                        sendUiEvent(UiEvent.Navigate(Routes.HOME + "?username=${username}"))
+                                   } else {
+                                        println("Wrong Passy")
+                                   }
                               }
                          } catch (ex: NullPointerException) {
                               println("User Not Found")
@@ -70,5 +77,15 @@ class ProfileAndLoginViewModel @Inject constructor(
           viewModelScope.launch {
                _uiEvent.send(event)
           }
+     }
+
+     private fun encryptPassword(pass: String): String {
+          return BCrypt.withDefaults().hashToString(12, pass.toCharArray())
+     }
+
+     private fun checkPassword(entered: String, inDatabase: String): Boolean {
+          val toCheck: String = BCrypt.withDefaults().hashToString(12, entered.toCharArray())
+          val checkAgainst = BCrypt.verifyer().verify(inDatabase.toCharArray(), toCheck)
+          return checkAgainst.verified
      }
 }

@@ -66,7 +66,7 @@ fun ToolSetListScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             if (viewModel.searchText.isBlank()) {
-                items(toolSets.value) { toolset ->
+                items(toolSets.value, key = {toolset -> toolset.PONumber}) { toolset ->
                     ToolSetItem(
                         toolSet = toolset,
                         onEvent = viewModel::onEvent,
