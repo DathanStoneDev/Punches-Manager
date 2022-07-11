@@ -15,7 +15,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
-import java.nio.charset.StandardCharsets
 import javax.inject.Inject
 
 @HiltViewModel
@@ -36,6 +35,8 @@ class ProfileAndLoginViewModel @Inject constructor(
 
      private var hashedPassword = ""
 
+
+     //Initializing savedUserName for Profile and Home Screen.
      init {
           val savedUserName = savedStateHandle.get<String>("username")
           if (savedUserName != null) {

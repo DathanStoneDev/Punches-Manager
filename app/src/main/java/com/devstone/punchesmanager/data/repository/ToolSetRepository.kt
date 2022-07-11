@@ -16,5 +16,5 @@ interface ToolSetRepository {
 
     suspend fun deleteToolSet(toolSet: ToolSet)
 
-    fun getToolSetReport(): Flow<ToolSetReport>
+    fun getToolSetReport(): Flow<List<ToolSetReport>>
 }

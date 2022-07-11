@@ -13,6 +13,3 @@ data class ToolSetReport(
     )
     val toolRecords: List<ToolRecord>?
 )
-
-//Need report for the following: get all records for toolsets by PO# and then show total doses
-//Need report for the following: get all records that are retired - show if they met their lifespan

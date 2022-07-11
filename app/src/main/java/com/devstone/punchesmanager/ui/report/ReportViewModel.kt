@@ -14,10 +14,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ReportViewModel @Inject constructor(
-    private val recordRepo: RecordRepository
+    private val recordRepo: RecordRepository,
+    private val toolSetRepo: ToolSetRepository,
 ): ViewModel() {
 
     val records = recordRepo.getAllRecords()
+    val toolSets = toolSetRepo.getToolSetReport()
 
     var searchText by mutableStateOf("")
 

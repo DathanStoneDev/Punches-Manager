@@ -13,9 +13,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.devstone.punchesmanager.ui.report.model.ToolSetReport
 import com.devstone.punchesmanager.ui.report.pages.DosingReport
 import com.devstone.punchesmanager.ui.report.pages.LifeSpanReport
 import com.devstone.punchesmanager.ui.report.pages.ProductReport
+import kotlinx.coroutines.flow.emptyFlow
 
 @Composable
 fun ReportScreen(
@@ -23,6 +25,7 @@ fun ReportScreen(
     viewModel: ReportViewModel = hiltViewModel(),
 ) {
     val records = viewModel.records.collectAsState(initial = emptyList())
+    val toolSets = viewModel.toolSets.collectAsState(initial = emptyList())
     Column(
         modifier = modifier
             .background(Color.LightGray)
@@ -45,7 +48,7 @@ fun ReportScreen(
         Spacer(modifier = modifier.height(20.dp))
         when(viewModel.showReport){
             0 -> DosingReport(records.value, modifier, viewModel)
-            1 -> LifeSpanReport(records.value, modifier, viewModel)
+            1 -> LifeSpanReport(toolSets.value, modifier, viewModel)
             2 -> ProductReport(records.value, modifier, viewModel)
         }
     }
