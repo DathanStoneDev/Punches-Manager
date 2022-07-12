@@ -13,6 +13,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import java.lang.NumberFormatException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -27,19 +28,16 @@ class AddEditToolSetViewModel @Inject constructor(
     var PONumber by mutableStateOf("")
         private set
 
-    var amount by mutableStateOf(0)
+    var amount by mutableStateOf("")
         private set
 
     var shape by mutableStateOf("")
         private set
 
-    var cost by mutableStateOf(0.0)
+    var cost by mutableStateOf("")
         private set
 
-    var life by mutableStateOf(0)
-        private set
-
-    var tipType by mutableStateOf(1)
+    var tipType by mutableStateOf("")
         private set
 
     var retired by mutableStateOf(false)
@@ -54,11 +52,10 @@ class AddEditToolSetViewModel @Inject constructor(
             viewModelScope.launch {
                 repository.getToolSetByPO(toolSetPONumber)?.let { toolSet ->
                     PONumber = toolSet.PONumber
-                    amount = toolSet.setAmount
+                    amount = toolSet.setAmount.toString()
                     shape = toolSet.shape
-                    cost = toolSet.cost
-                    life = toolSet.lifeExpectancy
-                    tipType = toolSet.tipType
+                    cost = toolSet.cost.toString()
+                    tipType = toolSet.tipType.toString()
                     retired = toolSet.retired
                     this@AddEditToolSetViewModel.toolSet = toolSet
                 }
@@ -81,9 +78,6 @@ class AddEditToolSetViewModel @Inject constructor(
             is AddEditToolSetEvent.OnShapeChange -> {
                 shape = event.shape
             }
-            is AddEditToolSetEvent.OnLifeExpectancyChange -> {
-                life = event.lifeExpectancy
-            }
             is AddEditToolSetEvent.OnTipTypeChange -> {
                 tipType = event.toolTipType
             }
@@ -91,16 +85,20 @@ class AddEditToolSetViewModel @Inject constructor(
                 retired = event.retire
             }
             is AddEditToolSetEvent.OnSaveToolSetClick -> {
+                val approved: Boolean = if (!verifyTextFieldInputForInt(tipType, amount)){
+                    false
+                } else verifyTextFieldInputForDouble(cost)
+
                 viewModelScope.launch {
-                    if (PONumber.isNotBlank()) {
+                    if (PONumber.isNotBlank() && approved) {
                         repository.insertToolSet(
                             ToolSet(
                                 PONumber = PONumber,
-                                tipType = tipType,
-                                setAmount = amount,
+                                tipType = tipType.toInt(),
+                                setAmount = amount.toInt(),
                                 shape = shape,
-                                lifeExpectancy = life,
-                                cost = cost,
+                                lifeExpectancy = calculateLifeExpectancy(),
+                                cost = cost.toDouble(),
                                 retired = retired
                             )
                         )
@@ -112,6 +110,44 @@ class AddEditToolSetViewModel @Inject constructor(
 
         }
     }
+
+    /**
+     * Auto-calculates the life expectancy of a set based on the amount of punches multiplied by
+     * a million.
+     */
+    private fun calculateLifeExpectancy(): Int {
+        return amount.toInt() * 1000000
+    }
+
+    /**
+     * Verifies that the tipType and Amount are ints.
+     * Input are strings from the text fields and converted to ints.
+     * Number format exception would be thrown if string cannot be converted to int. Returns false.
+     */
+    private fun verifyTextFieldInputForInt(tip: String, amount: String): Boolean {
+        return try {
+            tip.toInt()
+            amount.toInt()
+            true
+        } catch (ex: NumberFormatException){
+            false
+        }
+    }
+
+    /**
+     * Verifies that the cost is a double.
+     * Input are strings from the cost text field and converted to a double.
+     * Number format exception would be thrown if string cannot be converted to a double. Returns false.
+     */
+    private fun verifyTextFieldInputForDouble(cost: String): Boolean {
+        return try{
+            cost.toDouble()
+            true
+        } catch (ex: NumberFormatException){
+            false
+        }
+    }
+
 
     private fun sendUiEvent(event: UiEvent) {
         viewModelScope.launch {

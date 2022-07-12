@@ -6,7 +6,6 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.devstone.punchesmanager.data.repository.UserRepository
 import com.devstone.punchesmanager.util.UiEvent
 import com.devstone.punchesmanager.util.navigation.Routes
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,6 +14,9 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * UI and Business logic handled here for the HomeScreen.
+ */
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
@@ -25,7 +27,6 @@ class HomeViewModel @Inject constructor(
 
     var username by mutableStateOf("")
         private set
-
 
     init {
         val sentUsername = savedStateHandle.get<String>("username")
@@ -55,14 +56,6 @@ class HomeViewModel @Inject constructor(
         }
 
     }
-
-
-
-
-
-
-
-
 
     private fun sendUiEvent(event: UiEvent) {
         viewModelScope.launch {

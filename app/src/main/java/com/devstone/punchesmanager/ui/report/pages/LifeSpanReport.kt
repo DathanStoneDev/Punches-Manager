@@ -16,6 +16,9 @@ import com.devstone.punchesmanager.ui.report.ReportViewModel
 import com.devstone.punchesmanager.ui.report.model.ToolSetReport
 import com.devstone.punchesmanager.ui.report.shared.ReportSearchBar
 import java.text.DecimalFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 @Composable
 fun LifeSpanReport(
@@ -23,7 +26,9 @@ fun LifeSpanReport(
     modifier: Modifier,
     viewModel: ReportViewModel
 ) {
-    //Needs to be in viewmodel
+    val currentDateTime = LocalDateTime.now()
+    val sdf = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm", Locale.US)
+    val formatted = sdf.format(currentDateTime)
 
     var totalDoses: Long = 0
     var lifeExpectancy = 0
@@ -56,8 +61,6 @@ fun LifeSpanReport(
             "Retired"
         }
     }
-
-    println(filterMap("PO1"))
 
     Column(
         modifier = modifier.fillMaxSize(),
@@ -107,6 +110,7 @@ fun LifeSpanReport(
                     LifeSpanSummaryRow(modifier = modifier, data = "Total Doses Ran: $totalDoses")
                     LifeSpanSummaryRow(modifier = modifier, data = "Percent of Life Used: ${calculateLifePercentage()}%")
                     LifeSpanSummaryRow(modifier = modifier, data = "Status: ${getRetiredStatus(viewModel.searchText)}")
+                    LifeSpanSummaryRow(modifier = modifier, data = "Current Data As Of: $formatted")
                 }
             }
         }

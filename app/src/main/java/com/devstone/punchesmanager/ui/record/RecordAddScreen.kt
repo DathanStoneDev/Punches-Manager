@@ -8,7 +8,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Save
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -22,13 +21,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.devstone.punchesmanager.data.entities.Product
-import com.devstone.punchesmanager.ui.product.ProductItem
-import com.devstone.punchesmanager.ui.product.ProductListEvent
 import com.devstone.punchesmanager.util.UiEvent
 import kotlinx.coroutines.flow.collect
-import java.text.SimpleDateFormat
 import java.time.LocalDateTime
-import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 

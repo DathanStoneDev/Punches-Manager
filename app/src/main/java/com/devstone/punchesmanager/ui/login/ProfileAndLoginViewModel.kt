@@ -17,6 +17,9 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * UI and Business logic for the Login and Profile pages.
+ */
 @HiltViewModel
 class ProfileAndLoginViewModel @Inject constructor(
      val repository: UserRepository,
@@ -44,6 +47,7 @@ class ProfileAndLoginViewModel @Inject constructor(
           }
      }
 
+     //On login, checks hashed password in database with entered password.
      fun onLogin(event: LoginEvent) {
           when(event) {
                is LoginEvent.OnLoginClick -> {
@@ -80,10 +84,17 @@ class ProfileAndLoginViewModel @Inject constructor(
           }
      }
 
+     /**
+      * Encrypts passwords upon creating a user.
+      * Uses Bcrypt to encrypt password with a salt added.
+      */
      private fun encryptPassword(pass: String): String {
           return BCrypt.withDefaults().hashToString(12, pass.toCharArray())
      }
 
+     /**
+      * Verification check for entered password vs saved password.
+      */
      private fun checkPassword(entered: String, inDatabase: String): Boolean {
           val toCheck: String = BCrypt.withDefaults().hashToString(12, entered.toCharArray())
           val checkAgainst = BCrypt.verifyer().verify(inDatabase.toCharArray(), toCheck)

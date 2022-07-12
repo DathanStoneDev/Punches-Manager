@@ -6,6 +6,9 @@ import androidx.compose.material.icons.filled.Description
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Inventory2
 
+/**
+ * NavBar items that are on the bottom bar.
+ */
 object NavBarItems {
     val bottomNavItem = listOf(
         BottomNavItem(

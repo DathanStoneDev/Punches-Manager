@@ -13,12 +13,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.devstone.punchesmanager.ui.report.model.ToolSetReport
 import com.devstone.punchesmanager.ui.report.pages.DosingReport
 import com.devstone.punchesmanager.ui.report.pages.LifeSpanReport
 import com.devstone.punchesmanager.ui.report.pages.ProductReport
-import kotlinx.coroutines.flow.emptyFlow
 
+/**
+ * Main screen that shows different reports based on selected tab.
+ */
 @Composable
 fun ReportScreen(
     modifier: Modifier,

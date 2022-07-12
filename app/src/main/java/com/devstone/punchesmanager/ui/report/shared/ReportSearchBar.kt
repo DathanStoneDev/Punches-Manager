@@ -15,6 +15,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.devstone.punchesmanager.ui.report.ReportEvent
 
+/**
+ * Search bar that is present between the 3 different reports.
+ */
 @Composable
 fun ReportSearchBar(
     modifier: Modifier,

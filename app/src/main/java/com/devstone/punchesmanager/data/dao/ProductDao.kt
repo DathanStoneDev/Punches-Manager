@@ -4,6 +4,9 @@ import androidx.room.*
 import com.devstone.punchesmanager.data.entities.Product
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * ROOM Database queries for products.
+ */
 @Dao
 interface ProductDao {
 

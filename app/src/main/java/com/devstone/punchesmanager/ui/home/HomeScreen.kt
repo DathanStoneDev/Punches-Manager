@@ -1,6 +1,5 @@
 package com.devstone.punchesmanager.ui.home
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CutCornerShape
@@ -10,7 +9,6 @@ import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Summarize
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -23,12 +21,14 @@ import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.devstone.punchesmanager.MainActivity
 import com.devstone.punchesmanager.util.navigation.USERNAME
 import kotlinx.coroutines.flow.collect
 import java.text.SimpleDateFormat
 import java.util.*
 
+/**
+ * HomeScreen composable that displays the HomeScreen UI. Events flow up, to the viewmodel.
+ */
 @Composable
 fun HomeScreen(
     onNavigate: (UiEvent.Navigate) -> Unit,
@@ -51,19 +51,18 @@ fun HomeScreen(
             .background(LightGray),
         horizontalAlignment = Alignment.CenterHorizontally,
             ){
-        HomeTopAppBar(modifier = modifier, onEvent = viewModel::onEvent)
+        HomeTopAppBar(onEvent = viewModel::onEvent)
         Spacer(modifier = modifier.height(15.dp))
         GreetingCard(modifier, USERNAME.username)
         Spacer(modifier = modifier.height(15.dp))
         ReportCardTile(modifier = modifier, onEvent = viewModel::onEvent)
         Spacer(modifier = modifier.height(15.dp))
-        //StatCardTile(modifier = modifier)
 
     }
 }
 
 @Composable
-fun HomeTopAppBar(modifier: Modifier, onEvent: (HomeEvent) -> Unit) {
+fun HomeTopAppBar(onEvent: (HomeEvent) -> Unit) {
     TopAppBar(
         title = { Text("Home") },
         backgroundColor = LightGray,
@@ -85,7 +84,6 @@ fun HomeTopAppBar(modifier: Modifier, onEvent: (HomeEvent) -> Unit) {
 @Composable
 fun GreetingCard(modifier: Modifier, name: String) {
 
-    //make this into a util class
     val sdf = SimpleDateFormat("MM/dd/yyyy", Locale.US)
     val currentDate = sdf.format(Date())
 

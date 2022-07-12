@@ -2,9 +2,11 @@ package com.devstone.punchesmanager.data.dao
 
 import androidx.room.*
 import com.devstone.punchesmanager.data.entities.ToolRecord
-import com.devstone.punchesmanager.data.entities.ToolSet
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * ROOM Database queries for records.
+ */
 @Dao
 interface RecordDao {
 

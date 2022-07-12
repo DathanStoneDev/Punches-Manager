@@ -9,5 +9,4 @@ data class Product (
     @PrimaryKey
     val productId: String,
     @ColumnInfo(name = "name") val name: String,
-        ){
-}
+)

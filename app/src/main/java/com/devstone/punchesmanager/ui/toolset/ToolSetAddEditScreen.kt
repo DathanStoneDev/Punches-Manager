@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.CutCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
@@ -14,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -81,39 +83,11 @@ fun ToolSetAddEditScreen(
             elevation = 10.dp,
             color = Color.White,
             shape = CutCornerShape(10.dp)
-        ) {
-            TextField(
-                value = viewModel.life.toString(),
-                onValueChange = {
-                    viewModel.onEvent(AddEditToolSetEvent.OnLifeExpectancyChange(it.toInt()))
-                },
-                label = {
-                    Text(
-                        text = "Life Expectancy",
-                        fontFamily = FontFamily.Monospace
-                    )
-                },
-                modifier = Modifier.fillMaxWidth(),
-                singleLine = true,
-                colors = TextFieldDefaults.textFieldColors(
-                    backgroundColor = Color.Transparent,
-                    cursorColor = Color.White
-                )
-            )
-        }
-        Spacer(modifier = Modifier.height(10.dp))
-        Surface(
-            modifier = Modifier
-                .width(250.dp)
-                .height(55.dp),
-            elevation = 10.dp,
-            color = Color.White,
-            shape = CutCornerShape(10.dp)
         ){
             TextField(
             value = viewModel.amount.toString(),
             onValueChange = {
-                viewModel.onEvent(AddEditToolSetEvent.OnAmountChange(it.toInt()))
+                viewModel.onEvent(AddEditToolSetEvent.OnAmountChange(it))
             },
             label = {
                 Text(
@@ -141,7 +115,7 @@ fun ToolSetAddEditScreen(
             TextField(
                 value = viewModel.tipType.toString(),
                 onValueChange = {
-                    viewModel.onEvent(AddEditToolSetEvent.OnTipTypeChange(it.toInt()))
+                    viewModel.onEvent(AddEditToolSetEvent.OnTipTypeChange(it))
                 },
                 label = {
                     Text(
@@ -154,7 +128,8 @@ fun ToolSetAddEditScreen(
                 colors = TextFieldDefaults.textFieldColors(
                     backgroundColor = Color.Transparent,
                     cursorColor = Color.White
-                )
+                ),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
             )
         }
         Spacer(modifier = Modifier.height(10.dp))
@@ -197,7 +172,7 @@ fun ToolSetAddEditScreen(
             TextField(
                 value = viewModel.cost.toString(),
                 onValueChange = {
-                    viewModel.onEvent(AddEditToolSetEvent.OnCostChange(it.toDouble()))
+                    viewModel.onEvent(AddEditToolSetEvent.OnCostChange(it))
                 },
                 label = {
                     Text(

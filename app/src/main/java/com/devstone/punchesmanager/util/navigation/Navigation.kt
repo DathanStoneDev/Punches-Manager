@@ -7,7 +7,6 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.devstone.punchesmanager.MainActivity
 import com.devstone.punchesmanager.ui.home.HomeScreen
 import com.devstone.punchesmanager.ui.login.LoginScreen
 import com.devstone.punchesmanager.ui.login.ProfileScreen
@@ -19,6 +18,9 @@ import com.devstone.punchesmanager.ui.report.ReportScreen
 import com.devstone.punchesmanager.ui.toolset.ToolSetAddEditScreen
 import com.devstone.punchesmanager.ui.toolset.ToolSetListScreen
 
+/**
+ * Navigation Graph Composable. Contains all routes to different pages.
+ */
 @Composable
 fun Navigation(navController: NavHostController) {
 

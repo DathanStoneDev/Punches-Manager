@@ -4,6 +4,9 @@ import androidx.room.Dao
 import androidx.room.Query
 import com.devstone.punchesmanager.data.entities.ToolUser
 
+/**
+ * ROOM Database queries for users.
+ */
 @Dao
 interface UserDao {
 

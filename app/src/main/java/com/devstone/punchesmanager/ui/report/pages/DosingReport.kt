@@ -19,6 +19,9 @@ import com.devstone.punchesmanager.data.entities.ToolRecord
 import com.devstone.punchesmanager.ui.report.ReportEvent
 import com.devstone.punchesmanager.ui.report.ReportViewModel
 import com.devstone.punchesmanager.ui.report.shared.ReportSearchBar
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 @Composable
 fun DosingReport(
@@ -26,6 +29,10 @@ fun DosingReport(
     modifier: Modifier,
     viewModel: ReportViewModel
 ) {
+
+    val currentDateTime = LocalDateTime.now()
+    val sdf = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm", Locale.US)
+    val formatted = sdf.format(currentDateTime)
 
     var doses: Long = 0
 
@@ -52,65 +59,73 @@ fun DosingReport(
             color = Color.White,
             shape = CutCornerShape(10.dp)
         ) {
-            Row(
-                modifier = modifier
-                    .fillMaxWidth()
-                    .padding(top = 5.dp, start = 5.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                TableHeadings(modifier = modifier.width(100.dp), heading = "Record ID")
-                TableHeadings(modifier = modifier.width(100.dp), heading = "Set ID")
-                TableHeadings(modifier = modifier.width(100.dp), heading = "Doses")
-            }
-
-            if (filter.isNotEmpty() && viewModel.searchText != "") {
-                LazyColumn(
+            Spacer(modifier = modifier.height(5.dp))
+            Column(modifier = modifier.padding(vertical = 5.dp)) {
+                Text(
+                    text = "Current Data As Of: $formatted",
+                    fontFamily = FontFamily.Monospace,
+                    modifier = modifier.padding(start = 5.dp)
+                )
+                Spacer(modifier = modifier.height(10.dp))
+                Row(
                     modifier = modifier
-                        .height(600.dp)
-                        .padding(top = 20.dp),
-                ){
-                    items(filter) { record ->
-                        Row(modifier = modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                            DosingItem(
-                                modifier = modifier.padding(bottom = 8.dp, start = 5.dp),
-                                dataPoint = record.toolRecordId.toString()
-                            )
-                            DosingItem(
-                                modifier = modifier.padding(bottom = 8.dp, start = 5.dp),
-                                dataPoint = record.toolSetId
-                            )
-                            DosingItem(
-                                modifier = modifier.padding(bottom = 8.dp, start = 5.dp),
-                                dataPoint = record.dosesRan.toString()
-                            )
+                        .fillMaxWidth()
+                        .padding(top = 5.dp, start = 5.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    TableHeadings(modifier = modifier.width(100.dp), heading = "Record ID")
+                    TableHeadings(modifier = modifier.width(100.dp), heading = "Set ID")
+                    TableHeadings(modifier = modifier.width(100.dp), heading = "Doses")
+                }
+                if (filter.isNotEmpty() && viewModel.searchText != "") {
+                    LazyColumn(
+                        modifier = modifier
+                            .height(600.dp)
+                            .padding(top = 20.dp),
+                    ){
+                        items(filter) { record ->
+                            Row(modifier = modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                                DosingItem(
+                                    modifier = modifier.padding(bottom = 8.dp, start = 5.dp),
+                                    dataPoint = record.toolRecordId.toString()
+                                )
+                                DosingItem(
+                                    modifier = modifier.padding(bottom = 8.dp, start = 5.dp),
+                                    dataPoint = record.toolSetId
+                                )
+                                DosingItem(
+                                    modifier = modifier.padding(bottom = 8.dp, start = 5.dp),
+                                    dataPoint = record.dosesRan.toString()
+                                )
+                            }
+                        }
+                        doses = filter.sumOf { doses -> doses.dosesRan }
+                    }
+                } else {
+                    LazyColumn(
+                        modifier = modifier
+                            .height(600.dp)
+                            .padding(top = 30.dp),
+                    ){
+                        items(toolRecords) { record ->
+                            Row(modifier = modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                                DosingItem(
+                                    modifier = modifier.padding(bottom = 8.dp, start = 5.dp),
+                                    dataPoint = record.toolRecordId.toString()
+                                )
+                                DosingItem(
+                                    modifier = modifier.padding(bottom = 8.dp, start = 5.dp),
+                                    dataPoint = record.toolSetId
+                                )
+                                DosingItem(
+                                    modifier = modifier.padding(bottom = 8.dp, start = 5.dp),
+                                    dataPoint = record.dosesRan.toString()
+                                )
+                            }
                         }
                     }
-                    doses = filter.sumOf { doses -> doses.dosesRan }
+                    doses = toolRecords.sumOf { doses -> doses.dosesRan }
                 }
-            } else {
-                LazyColumn(
-                    modifier = modifier
-                        .height(600.dp)
-                        .padding(top = 30.dp),
-                ){
-                    items(toolRecords) { record ->
-                        Row(modifier = modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                            DosingItem(
-                                modifier = modifier.padding(bottom = 8.dp, start = 5.dp),
-                                dataPoint = record.toolRecordId.toString()
-                            )
-                            DosingItem(
-                                modifier = modifier.padding(bottom = 8.dp, start = 5.dp),
-                                dataPoint = record.toolSetId
-                            )
-                            DosingItem(
-                                modifier = modifier.padding(bottom = 8.dp, start = 5.dp),
-                                dataPoint = record.dosesRan.toString()
-                            )
-                        }
-                    }
-                }
-                doses = toolRecords.sumOf { doses -> doses.dosesRan }
             }
         }
             Text(text = "Total Doses: $doses")

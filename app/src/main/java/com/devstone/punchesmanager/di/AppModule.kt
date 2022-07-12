@@ -10,6 +10,10 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+/**
+ * Dagger Hilt dependency injection. Class contains only singletons.
+ * Singletons include the Database and every repository.
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {

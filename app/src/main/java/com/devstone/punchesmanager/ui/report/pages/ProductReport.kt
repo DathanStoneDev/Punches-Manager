@@ -15,6 +15,9 @@ import androidx.compose.ui.unit.sp
 import com.devstone.punchesmanager.data.entities.ToolRecord
 import com.devstone.punchesmanager.ui.report.ReportViewModel
 import com.devstone.punchesmanager.ui.report.shared.ReportSearchBar
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 @Composable
 fun ProductReport(
@@ -22,6 +25,10 @@ fun ProductReport(
     modifier: Modifier,
     viewModel: ReportViewModel
 ) {
+
+    val currentDateTime = LocalDateTime.now()
+    val sdf = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm", Locale.US)
+    val formatted = sdf.format(currentDateTime)
 
     val filter = toolRecords.filter {
         it.productId.equals(viewModel.searchText.trim(), true)
@@ -78,6 +85,7 @@ fun ProductReport(
                     ProductSummaryRow(modifier = modifier, data = "Current Number of Active Runs: $activeRuns")
                     ProductSummaryRow(modifier = modifier, data = "Current Number of Completed Runs: $inactiveRuns")
                     ProductSummaryRow(modifier = modifier, data = "Total Number of Doses: $totalDoses")
+                    ProductSummaryRow(modifier = modifier, data = "Current Data As Of: $formatted")
                     }
                 }
             }

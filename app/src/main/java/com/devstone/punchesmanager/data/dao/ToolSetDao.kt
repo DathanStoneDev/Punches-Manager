@@ -5,7 +5,9 @@ import com.devstone.punchesmanager.data.entities.ToolSet
 import com.devstone.punchesmanager.ui.report.model.ToolSetReport
 import kotlinx.coroutines.flow.Flow
 
-
+/**
+ * ROOM Database queries for tool sets.
+ */
 @Dao
 interface ToolSetDao {
 
