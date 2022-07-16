@@ -6,7 +6,6 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import at.favre.lib.crypto.bcrypt.BCrypt
 import com.devstone.punchesmanager.data.repository.UserRepository
 import com.devstone.punchesmanager.util.UiEvent
 import com.devstone.punchesmanager.util.navigation.Routes
@@ -37,6 +36,7 @@ class ProfileAndLoginViewModel @Inject constructor(
           private set
 
      private var hashedPassword = ""
+
 
 
      //Initializing savedUserName for Profile and Home Screen.
@@ -89,15 +89,14 @@ class ProfileAndLoginViewModel @Inject constructor(
       * Uses Bcrypt to encrypt password with a salt added.
       */
      private fun encryptPassword(pass: String): String {
-          return BCrypt.withDefaults().hashToString(12, pass.toCharArray())
+          return org.mindrot.jbcrypt.BCrypt.hashpw(pass, org.mindrot.jbcrypt.BCrypt.gensalt(12))
      }
 
      /**
       * Verification check for entered password vs saved password.
       */
      private fun checkPassword(entered: String, inDatabase: String): Boolean {
-          val toCheck: String = BCrypt.withDefaults().hashToString(12, entered.toCharArray())
-          val checkAgainst = BCrypt.verifyer().verify(inDatabase.toCharArray(), toCheck)
-          return checkAgainst.verified
+          return org.mindrot.jbcrypt.BCrypt.checkpw(entered, inDatabase)
      }
+
 }

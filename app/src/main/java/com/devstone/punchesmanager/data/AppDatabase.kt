@@ -14,7 +14,7 @@ import com.devstone.punchesmanager.data.entities.ToolUser
 /**
  * Database class that contains access to DAOs
  */
-@Database(entities = [ToolSet::class, Product::class, ToolRecord::class, ToolUser::class], version = 12, exportSchema = false)
+@Database(entities = [ToolSet::class, Product::class, ToolRecord::class, ToolUser::class], version = 13, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun toolSetDao(): ToolSetDao
     abstract fun productDao(): ProductDao
