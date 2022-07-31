@@ -65,3 +65,20 @@ kapt {
 id 'org.jetbrains.kotlin.kapt'
 id 'dagger.hilt.android.plugin'
 ```
+## Reflection
+
+This was a 5-6 week long project for my Capstone to complete my B.S Degree in Software Development. The goal of the project was to create an application of my choosing that would solve a business problem using Software Design and Programming principles. This application was not intended to be released on the Google Play Store.
+
+I decided to go outside my comfort box of programming in Java and dive deep into Kotlin. I've had a strong intrest in android development and figured since Kotlin is becoming the De Facto standard of android development, I'd design my application around Google's recommended technologies and architecture.
+
+One of the main challanges I faced was performing database operations that would not block the UI. I spent some time truly understanding how the UI is updated with Jetpack Compose and operations that are performed on the Main UI Thread. If this thread is blocked by expensive operations, this could lead the UI not being updated, laggy frames or even app crashes. To combat this, I dove into Kotlin Coroutines and effects. Coroutines allowed me to run asyncronous functions in a "Main Safe" way, or declare a different thread to perform these operations so that the UI was never blocked.
+
+Lastly, I chose a somewhat older encryption library: JBcrypt to meet the secuirty requirement in my capstone. This provided a hashing algorithm that added a salt to passwords stored in the database that is simple to set up and easy to use. If I were to release this application in the future, I'd probably go with Email Verification via Firebase to provide security to the application data and polish up the UI.
+
+### Technologies and Architecture
+:small_blue_diamond: Kotlin 1.6.10 <br />
+:small_blue_diamond: Jetpack Compose 1.1.1 (Declarative UI Programming) <br />
+:small_blue_diamond: ROOM Database 2.4.2 (Local Storage) <br />
+:small_blue_diamond: Dagger-Hilt (Dependency Injection) <br />
+:small_blue_diamond: Model-View-ViewModel (MVVM) - Separate business and UI logic <br />
+:small_blue_diamond: Unidirectional Data Flow (UDF) - State flows down, events flow up <br />
